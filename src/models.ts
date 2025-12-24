@@ -5,9 +5,9 @@ import type { ModelConfig } from "./types";
 // Include "usage" so we can log cost
 const defaultProviderOptions = {
     usage: {
-      include: true,
+        include: true,
     },
-  };
+};
 
 export const models: ModelConfig[] = [
 
@@ -82,7 +82,7 @@ export const models: ModelConfig[] = [
         reasoning: true,
     },
 
-    // Grok
+
     {
         name: "grok-4",
         llm: openrouter("x-ai/grok-4", defaultProviderOptions),
@@ -99,7 +99,7 @@ export const models: ModelConfig[] = [
         reasoning: true,
     },
 
-    // Gemini
+
     {
         name: "gemini-3-pro-preview",
         llm: openrouter("google/gemini-3-pro-preview", defaultProviderOptions),
@@ -114,7 +114,7 @@ export const models: ModelConfig[] = [
         name: "gemini-2.5-flash",
         llm: openrouter("google/gemini-2.5-flash", defaultProviderOptions),
     },
-    // Anthropic
+
     {
         name: "claude-4-sonnet",
         llm: openrouter("anthropic/claude-sonnet-4", defaultProviderOptions),
@@ -148,7 +148,7 @@ export const models: ModelConfig[] = [
         reasoning: true,
     },
 
-    // OpenAI
+
     {
         name: "o4-mini",
         llm: openrouter("openai/o4-mini", defaultProviderOptions),

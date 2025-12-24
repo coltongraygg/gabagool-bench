@@ -1,10 +1,12 @@
+import { type LanguageModel } from "ai";
+
 export type Scenario = {
     id: string;
     name: string;
     description: string;
     system_prompt: string;
     prompt: string;
-    context?: string;
+    context?: string;  
 };
 
 export type ToolCall = {
@@ -16,7 +18,7 @@ export type TestResult = {
     scenario_id: string;
     model: string;
     tool_calls: ToolCall[];
-    reasoning?: string;
+    reasoning?: string;      
     duration_ms: number;
     cost: number;
     tokens: number;
@@ -24,7 +26,7 @@ export type TestResult = {
 };
 
 export type ModelConfig = {
-    name: string;
-    id: string;
-    reasoning?: boolean;
-}
+    name: string;            
+    llm: LanguageModel;      // model instance from openrouter()
+    reasoning?: boolean;     
+};

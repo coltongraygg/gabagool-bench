@@ -1,8 +1,11 @@
 {
   "name": "gabagool-bench",
-  "module": "index.ts",
+  "module": "src/index.ts",
   "type": "module",
   "private": true,
+  "scripts": {
+    "start": "AI_SDK_LOG_WARNINGS=false bun run src/index.ts"
+  },
   "devDependencies": {
     "@types/bun": "^1.3.5"
   },

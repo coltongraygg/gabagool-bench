@@ -9,11 +9,6 @@ const defaultProviderOptions = {
     },
   };
 
-export function getModel(config: ModelConfig) {
-    return openrouter(config.name, defaultProviderOptions);
-};
-
-
 export const models: ModelConfig[] = [
 
 

@@ -18,11 +18,12 @@ export type TestResult = {
     scenario_id: string;
     model: string;
     tool_calls: ToolCall[];
-    reasoning?: string;      
+    reasoning?: string;
     duration_ms: number;
     cost: number;
     tokens: number;
     timestamp: string;
+    error?: string;
 };
 
 export type ModelConfig = {

@@ -17,6 +17,7 @@ export async function runScenario(
         system: scenario.system_prompt,
         prompt: `${scenario.context || ""}\n\n${scenario.prompt}`,
         tools: sopranosTools,
+        toolChoice: "required",
     });
 
     const duration = Date.now() - start;
@@ -68,8 +69,19 @@ export async function runAllScenarios(
                 completed++;
                 onProgress?.(completed, jobs.length + completed, result);
             } catch (error) {
-                console.error(`Error: ${job.model.name} on ${job.scenario.id}:`, error);
+                const errorResult: TestResult = {
+                    scenario_id: job.scenario.id,
+                    model: job.model.name,
+                    tool_calls: [],
+                    duration_ms: 0,
+                    cost: 0,
+                    tokens: 0,
+                    timestamp: new Date().toISOString(),
+                    error: error instanceof Error ? error.message : String(error),
+                };
+                results.push(errorResult);
                 completed++;
+                onProgress?.(completed, jobs.length + completed, errorResult);
             }
         }
     }

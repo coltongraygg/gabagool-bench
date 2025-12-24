@@ -49,16 +49,17 @@ export const models: ModelConfig[] = [
         llm: openrouter("deepseek/deepseek-r1-0528", defaultProviderOptions),
         reasoning: true,
     },
-    {
-        name: "gpt-oss-120b",
-        llm: openrouter("openai/gpt-oss-120b", defaultProviderOptions),
-        reasoning: true,
-    },
-    {
-        name: "gpt-oss-20b",
-        llm: openrouter("openai/gpt-oss-20b", defaultProviderOptions),
-        reasoning: true,
-    },
+    // Tool calling not working properly (malformed responses)
+    // {
+    //     name: "gpt-oss-120b",
+    //     llm: openrouter("openai/gpt-oss-120b", defaultProviderOptions),
+    //     reasoning: true,
+    // },
+    // {
+    //     name: "gpt-oss-20b",
+    //     llm: openrouter("openai/gpt-oss-20b", defaultProviderOptions),
+    //     reasoning: true,
+    // },
     {
         name: "deepseek-v3.1",
         llm: openrouter("deepseek/deepseek-chat-v3.1", defaultProviderOptions),
@@ -159,11 +160,12 @@ export const models: ModelConfig[] = [
         llm: openrouter("openai/o3", defaultProviderOptions),
         reasoning: true,
     },
-    {
-        name: "o3-pro",
-        llm: openrouter("openai/o3-pro", defaultProviderOptions),
-        reasoning: true,
-    },
+    // Requires separate OpenAI API key linked in OpenRouter settings
+    // {
+    //     name: "o3-pro",
+    //     llm: openrouter("openai/o3-pro", defaultProviderOptions),
+    //     reasoning: true,
+    // },
     {
         name: "gpt-4.1",
         llm: openrouter("openai/gpt-4.1", defaultProviderOptions),

@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://gabagool-bench.vercel.app/og-image.jpg",
+        url: "https://gabagool-bench.vercel.app/og-image.jpg?v=2",
         width: 1200,
         height: 630,
         alt: "Gabagool Bench - AI Benchmarks, Sopranos Style",
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     title: "Gabagool Bench - AI Benchmarks, Sopranos Style",
     description: "What kind of boss is your LLM? 40+ models. 12 Sopranos scenarios. No weaseling out.",
     creator: "@coltongraygg",
-    images: ["https://gabagool-bench.vercel.app/og-image.jpg"],
+    images: ["https://gabagool-bench.vercel.app/og-image.jpg?v=2"],
   },
   robots: {
     index: true,

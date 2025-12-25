@@ -1,5 +1,7 @@
 # gabagool-bench
 
+![Gabagool Bench](https://gabagool-bench.vercel.app/og-image.jpg)
+
 You got a problem with a guy, you got options. This benchmark finds out what kind of boss your LLM really is.
 
 We throw 40+ models into scenarios ripped straight from The Sopranos. They gotta make a call - order a hit, call a sitdown, apply a tax, threaten, bribe, or do nothing. No weaseling out with text responses. You pick a tool or you're not leaving this room.

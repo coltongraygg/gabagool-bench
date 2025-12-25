@@ -46,4 +46,6 @@ Now you know who's a killer and who wants to talk it out.
 
 ## credits
 
-inspired by [skatebench](https://github.com/t3dotgg/skatebench) from theo. 
+Inspired by [skatebench](https://github.com/T3-Content/skatebench#) from Theo and [gunbench](https://gunbench.vercel.app/).
+
+Built by [coltongraygg](https://graycoding.dev/). 

@@ -418,7 +418,7 @@ export default function Dashboard({ fingerprints, rawResults, scenarios }: Dashb
                                     { name: "Threaten", value: selectedModel.threaten_rate * 100, fill: TOOL_COLORS.threaten },
                                     { name: "Bribe", value: selectedModel.bribe_rate * 100, fill: TOOL_COLORS.bribe },
                                     { name: "Nothing", value: selectedModel.do_nothing_rate * 100, fill: TOOL_COLORS.do_nothing },
-                                  ]}
+                                  ].sort((a, b) => b.value - a.value)}
                                   layout="vertical"
                                   margin={{ left: 10, right: 20 }}
                                 >

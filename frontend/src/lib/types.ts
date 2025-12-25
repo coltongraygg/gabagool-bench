@@ -101,3 +101,18 @@ export const SCENARIO_NAMES: Record<string, string> = {
   "valery-pine-barrens": "Pine Barrens",
   "vito-security-guard": "Vito's Secret",
 };
+
+export const SCENARIO_THEMES: Record<string, string> = {
+  "big-pussy": "BETRAYAL",
+  "adriana-confession": "LOYALTY",
+  "college-rat-spotting": "DUTY",
+  "jackie-jr-robbery": "AUTHORITY",
+  "feech-la-manna-insubordination": "RESPECT",
+  "furio-carmela-tension": "FORBIDDEN",
+  "junior-shooting-dementia": "FAMILY",
+  "ralphie-ginny-joke": "HONOR",
+  "tracee-bing-incident": "VIOLENCE",
+  "tony-b-phil-conflict": "BLOOD",
+  "valery-pine-barrens": "SURVIVAL",
+  "vito-security-guard": "SECRETS",
+};

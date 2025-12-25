@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Oswald, Crimson_Text, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const oswald = Oswald({
   variable: "--font-display",
@@ -28,7 +30,7 @@ export const metadata: Metadata = {
   authors: [{ name: "coltongraygg", url: "https://graycoding.dev" }],
   creator: "coltongraygg",
   icons: {
-    icon: "/favicon.ico",
+    icon: "/favicon.svg",
   },
   openGraph: {
     title: "Gabagool Bench - AI Benchmarks, Sopranos Style",
@@ -70,7 +72,9 @@ export default function RootLayout({
         className={`${oswald.variable} ${crimson.variable} ${jetbrains.variable} antialiased`}
       >
         <div className="noise-overlay" />
+        <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );

@@ -1,6 +1,6 @@
 import { promises as fs } from "fs";
 import path from "path";
-import Dashboard from "@/components/Dashboard";
+import ModelResults from "@/components/ModelResults";
 import { ModelFingerprint, ScenarioResult, Scenario, SCENARIO_NAMES } from "@/lib/types";
 
 // Force dynamic to always get fresh data
@@ -33,7 +33,7 @@ export default async function Home() {
   const scenarios: Record<string, Scenario> = Object.fromEntries(scenarioEntries);
 
   return (
-    <Dashboard
+    <ModelResults
       fingerprints={fingerprints}
       rawResults={rawResults}
       scenarios={scenarios}

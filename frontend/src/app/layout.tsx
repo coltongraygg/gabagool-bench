@@ -33,13 +33,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Gabagool Bench - AI Benchmarks, Sopranos Style",
     description: "What kind of boss is your LLM? 40+ models. 12 Sopranos scenarios. No weaseling out.",
-    url: "https://gabagool.vercel.app",
+    url: "https://gabagool-bench.vercel.app",
     siteName: "Gabagool Bench",
     locale: "en_US",
     type: "website",
     images: [
       {
-        url: "https://gabagool.vercel.app/og-image.jpg",
+        url: "https://gabagool-bench.vercel.app/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Gabagool Bench - AI Benchmarks, Sopranos Style",
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     title: "Gabagool Bench - AI Benchmarks, Sopranos Style",
     description: "What kind of boss is your LLM? 40+ models. 12 Sopranos scenarios. No weaseling out.",
     creator: "@coltongraygg",
-    images: ["https://gabagool.vercel.app/og-image.jpg"],
+    images: ["https://gabagool-bench.vercel.app/og-image.jpg"],
   },
   robots: {
     index: true,

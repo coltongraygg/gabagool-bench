@@ -236,20 +236,20 @@ export default function Dashboard({ fingerprints, rawResults, scenarios }: Dashb
         <DialogContent className="max-w-4xl max-h-[90vh] bg-[#0d0d0d] border-[#2a2a2a] p-0 overflow-hidden">
           {selectedModel && (
             <div className="relative h-full">
-              <DialogHeader className="p-6 pb-0 pr-12">
-                <div className="flex items-start justify-between">
+              <DialogHeader className="p-4 pb-0 pr-10 sm:p-6 sm:pr-12">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-0">
                   <div>
-                    <DialogTitle className="font-[family-name:var(--font-display)] text-3xl text-white">
+                    <DialogTitle className="font-[family-name:var(--font-display)] text-2xl sm:text-3xl text-white">
                       {selectedModel.model}
                     </DialogTitle>
-                    <div className="text-xl text-[#FF6B6B] font-[family-name:var(--font-display)] tracking-wider mt-2 font-semibold drop-shadow-[0_0_10px_rgba(220,20,60,0.6)]">
+                    <div className="text-lg sm:text-xl text-[#FF6B6B] font-[family-name:var(--font-display)] tracking-wider mt-2 font-semibold drop-shadow-[0_0_10px_rgba(220,20,60,0.6)]">
                       {getMobNickname(selectedModel).name}
                     </div>
-                    <div className="text-lg text-[#bbb] italic font-[family-name:var(--font-body)] mt-2">
+                    <div className="text-base sm:text-lg text-[#bbb] italic font-[family-name:var(--font-body)] mt-1 sm:mt-2">
                       &ldquo;{getMobNickname(selectedModel).title}&rdquo;
                     </div>
                   </div>
-                  <div className="text-right font-[family-name:var(--font-mono)] text-base">
+                  <div className="flex gap-4 sm:flex-col sm:gap-0 sm:text-right font-[family-name:var(--font-mono)] text-sm sm:text-base">
                     <div className="text-[#FF6B6B] font-semibold">
                       {Math.round(selectedModel.violence_rate * 100)}% VIOLENCE
                     </div>
@@ -260,33 +260,33 @@ export default function Dashboard({ fingerprints, rawResults, scenarios }: Dashb
                 </div>
               </DialogHeader>
 
-              <Tabs defaultValue="decisions" className="p-6 pt-4 flex flex-col">
+              <Tabs defaultValue="decisions" className="p-4 pt-3 sm:p-6 sm:pt-4 flex flex-col">
                 <TabsList className="bg-[#1a1a1a] border border-[#2a2a2a] p-1 h-auto flex-shrink-0">
                   <TabsTrigger
                     value="decisions"
-                    className="px-6 py-3 text-base data-[state=active]:bg-[#DC143C] data-[state=active]:text-white data-[state=inactive]:text-[#888] font-[family-name:var(--font-display)] tracking-wider"
+                    className="px-3 py-2 text-sm sm:px-6 sm:py-3 sm:text-base data-[state=active]:bg-[#DC143C] data-[state=active]:text-white data-[state=inactive]:text-[#888] font-[family-name:var(--font-display)] tracking-wider"
                   >
                     DECISIONS
                   </TabsTrigger>
                   <TabsTrigger
                     value="breakdown"
-                    className="px-6 py-3 text-base data-[state=active]:bg-[#DC143C] data-[state=active]:text-white data-[state=inactive]:text-[#888] font-[family-name:var(--font-display)] tracking-wider"
+                    className="px-3 py-2 text-sm sm:px-6 sm:py-3 sm:text-base data-[state=active]:bg-[#DC143C] data-[state=active]:text-white data-[state=inactive]:text-[#888] font-[family-name:var(--font-display)] tracking-wider"
                   >
                     BREAKDOWN
                   </TabsTrigger>
                   <TabsTrigger
                     value="stats"
-                    className="px-6 py-3 text-base data-[state=active]:bg-[#DC143C] data-[state=active]:text-white data-[state=inactive]:text-[#888] font-[family-name:var(--font-display)] tracking-wider"
+                    className="px-3 py-2 text-sm sm:px-6 sm:py-3 sm:text-base data-[state=active]:bg-[#DC143C] data-[state=active]:text-white data-[state=inactive]:text-[#888] font-[family-name:var(--font-display)] tracking-wider"
                   >
                     STATS
                   </TabsTrigger>
                 </TabsList>
 
                 {/* Fixed height content area */}
-                <div className="h-[55vh] mt-4 relative">
+                <div className="h-[50vh] sm:h-[55vh] mt-3 sm:mt-4 relative">
                   <TabsContent value="decisions" className="mt-0 h-full absolute inset-0 data-[state=inactive]:hidden">
                     <ScrollArea className="h-full">
-                      <div className="space-y-6 pr-4 pb-20">
+                      <div className="space-y-4 sm:space-y-6 pr-2 sm:pr-4 pb-20">
                         {modelResults.map((result) => {
                           const scenario = scenarios[result.scenario_id];
                           const tool = result.tool_calls?.[0]?.tool || "error";
@@ -295,22 +295,22 @@ export default function Dashboard({ fingerprints, rawResults, scenarios }: Dashb
                           return (
                             <div
                               key={result.scenario_id}
-                              className="bg-[#141414] border border-[#2a2a2a] rounded-lg p-6"
+                              className="bg-[#141414] border border-[#2a2a2a] rounded-lg p-4 sm:p-6"
                             >
                               {/* Header */}
-                              <div className="flex items-start justify-between mb-4">
-                                <div>
-                                  <h3 className="font-[family-name:var(--font-display)] text-xl text-white">
+                              <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-0 mb-3 sm:mb-4">
+                                <div className="flex-1">
+                                  <h3 className="font-[family-name:var(--font-display)] text-lg sm:text-xl text-white">
                                     {SCENARIO_NAMES[result.scenario_id] || result.scenario_id}
                                   </h3>
                                   {scenario && (
-                                    <p className="text-sm text-[#888] mt-1 font-[family-name:var(--font-body)]">
+                                    <p className="text-xs sm:text-sm text-[#888] mt-1 font-[family-name:var(--font-body)]">
                                       {scenario.description}
                                     </p>
                                   )}
                                 </div>
                                 <Badge
-                                  className="font-[family-name:var(--font-display)] text-sm px-3 py-1"
+                                  className="font-[family-name:var(--font-display)] text-xs sm:text-sm px-2 py-1 sm:px-3 whitespace-nowrap self-start"
                                   style={{
                                     backgroundColor: TOOL_COLORS[tool] || "#666",
                                     color: tool === "call_sitdown" || tool === "threaten" ? "black" : "white",
@@ -322,13 +322,13 @@ export default function Dashboard({ fingerprints, rawResults, scenarios }: Dashb
 
                               {/* The Decision - formatted nicely */}
                               {Object.keys(args).length > 0 && (
-                                <div className="mb-4 p-4 bg-[#0d0d0d] rounded border-l-4 border-[#DC143C]">
+                                <div className="mb-3 sm:mb-4 p-3 sm:p-4 bg-[#0d0d0d] rounded border-l-4 border-[#DC143C]">
                                   <div className="text-xs text-[#D4AF37] font-[family-name:var(--font-display)] tracking-wider mb-2">
                                     THE DECISION
                                   </div>
-                                  <div className="space-y-2">
+                                  <div className="space-y-1 sm:space-y-2">
                                     {Object.entries(args).map(([key, value]) => (
-                                      <div key={key} className="text-base text-[#ccc] font-[family-name:var(--font-body)]">
+                                      <div key={key} className="text-sm sm:text-base text-[#ccc] font-[family-name:var(--font-body)]">
                                         <span className="text-[#888] capitalize">{key.replace(/_/g, " ")}: </span>
                                         <span className="text-white">{String(value)}</span>
                                       </div>
@@ -339,11 +339,11 @@ export default function Dashboard({ fingerprints, rawResults, scenarios }: Dashb
 
                               {/* The Reasoning */}
                               {result.reasoning && (
-                                <div className="p-4 bg-[#0d0d0d] rounded border-l-4 border-[#D4AF37]">
-                                  <div className="text-xs text-[#D4AF37] font-[family-name:var(--font-display)] tracking-wider mb-3">
+                                <div className="p-3 sm:p-4 bg-[#0d0d0d] rounded border-l-4 border-[#D4AF37]">
+                                  <div className="text-xs text-[#D4AF37] font-[family-name:var(--font-display)] tracking-wider mb-2 sm:mb-3">
                                     THE REASONING
                                   </div>
-                                  <p className="text-base text-[#bbb] font-[family-name:var(--font-body)] leading-relaxed italic whitespace-pre-wrap">
+                                  <p className="text-sm sm:text-base text-[#bbb] font-[family-name:var(--font-body)] leading-relaxed italic whitespace-pre-wrap">
                                     &ldquo;{result.reasoning}&rdquo;
                                   </p>
                                 </div>
@@ -356,13 +356,13 @@ export default function Dashboard({ fingerprints, rawResults, scenarios }: Dashb
                   </TabsContent>
 
                   <TabsContent value="breakdown" className="mt-0 h-full absolute inset-0 data-[state=inactive]:hidden overflow-auto">
-                    <div className="flex flex-col gap-6 pb-20">
+                    <div className="flex flex-col gap-4 sm:gap-6 pb-20">
                           {/* Pie Chart */}
-                          <div className="bg-[#141414] border border-[#2a2a2a] rounded p-4">
-                            <div className="font-[family-name:var(--font-display)] text-sm text-[#888] mb-4">
+                          <div className="bg-[#141414] border border-[#2a2a2a] rounded p-3 sm:p-4">
+                            <div className="font-[family-name:var(--font-display)] text-xs sm:text-sm text-[#888] mb-3 sm:mb-4">
                               TOOL DISTRIBUTION
                             </div>
-                            <div className="h-[250px] w-full">
+                            <div className="h-[200px] sm:h-[250px] w-full">
                               <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
                                   <Pie
@@ -404,11 +404,11 @@ export default function Dashboard({ fingerprints, rawResults, scenarios }: Dashb
                           </div>
 
                           {/* Bar Chart */}
-                          <div className="bg-[#141414] border border-[#2a2a2a] rounded p-4">
-                            <div className="font-[family-name:var(--font-display)] text-sm text-[#888] mb-4">
+                          <div className="bg-[#141414] border border-[#2a2a2a] rounded p-3 sm:p-4">
+                            <div className="font-[family-name:var(--font-display)] text-xs sm:text-sm text-[#888] mb-3 sm:mb-4">
                               RATE BREAKDOWN
                             </div>
-                            <div className="h-[250px] w-full">
+                            <div className="h-[200px] sm:h-[250px] w-full">
                               <ResponsiveContainer width="100%" height="100%">
                                 <BarChart
                                   data={[
@@ -449,28 +449,28 @@ export default function Dashboard({ fingerprints, rawResults, scenarios }: Dashb
                   </TabsContent>
 
                   <TabsContent value="stats" className="mt-0 h-full absolute inset-0 data-[state=inactive]:hidden overflow-auto flex items-start justify-center">
-                    <div className="flex flex-col gap-4 w-full max-w-md pb-20">
-                          <div className="bg-[#141414] border border-[#2a2a2a] rounded-lg p-6 flex items-center justify-between">
-                            <div className="text-[#888] text-sm font-[family-name:var(--font-mono)] tracking-wide uppercase">
+                    <div className="flex flex-col gap-3 sm:gap-4 w-full max-w-md pb-20">
+                          <div className="bg-[#141414] border border-[#2a2a2a] rounded-lg p-4 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0">
+                            <div className="text-[#888] text-xs sm:text-sm font-[family-name:var(--font-mono)] tracking-wide uppercase">
                               Avg Cost/Scenario
                             </div>
-                            <div className="text-[#D4AF37] text-3xl font-[family-name:var(--font-display)] font-bold">
+                            <div className="text-[#D4AF37] text-2xl sm:text-3xl font-[family-name:var(--font-display)] font-bold">
                               ${selectedModel.avg_cost.toFixed(4)}
                             </div>
                           </div>
-                          <div className="bg-[#141414] border border-[#2a2a2a] rounded-lg p-6 flex items-center justify-between">
-                            <div className="text-[#888] text-sm font-[family-name:var(--font-mono)] tracking-wide uppercase">
+                          <div className="bg-[#141414] border border-[#2a2a2a] rounded-lg p-4 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0">
+                            <div className="text-[#888] text-xs sm:text-sm font-[family-name:var(--font-mono)] tracking-wide uppercase">
                               Avg Response Time
                             </div>
-                            <div className="text-[#D4AF37] text-3xl font-[family-name:var(--font-display)] font-bold">
+                            <div className="text-[#D4AF37] text-2xl sm:text-3xl font-[family-name:var(--font-display)] font-bold">
                               {(selectedModel.avg_duration_ms / 1000).toFixed(1)}s
                             </div>
                           </div>
-                          <div className="bg-[#141414] border border-[#2a2a2a] rounded-lg p-6 flex items-center justify-between">
-                            <div className="text-[#888] text-sm font-[family-name:var(--font-mono)] tracking-wide uppercase">
+                          <div className="bg-[#141414] border border-[#2a2a2a] rounded-lg p-4 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0">
+                            <div className="text-[#888] text-xs sm:text-sm font-[family-name:var(--font-mono)] tracking-wide uppercase">
                               Total Tokens
                             </div>
-                            <div className="text-[#D4AF37] text-3xl font-[family-name:var(--font-display)] font-bold">
+                            <div className="text-[#D4AF37] text-2xl sm:text-3xl font-[family-name:var(--font-display)] font-bold">
                               {selectedModel.total_tokens.toLocaleString()}
                             </div>
                           </div>
@@ -479,7 +479,7 @@ export default function Dashboard({ fingerprints, rawResults, scenarios }: Dashb
                 </div>
               </Tabs>
               {/* Dialog-level scroll indicator gradient */}
-              <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#0d0d0d] via-[#0d0d0d]/80 to-transparent pointer-events-none z-10" />
+              <div className="absolute bottom-0 left-0 right-0 h-16 sm:h-24 bg-gradient-to-t from-[#0d0d0d] via-[#0d0d0d]/80 to-transparent pointer-events-none z-10" />
             </div>
           )}
         </DialogContent>

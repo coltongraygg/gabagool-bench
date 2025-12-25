@@ -75,78 +75,81 @@ export default function Dashboard({ fingerprints, rawResults, scenarios }: Dashb
         </p>
       </header>
 
-      {/* Controls Bar - Legend + Sort */}
-      <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-6 py-6 px-6 mb-12 bg-[#0a0a0a] border-y border-[#1a1a1a]">
-        {/* Tool Legend */}
-        <div className="flex flex-wrap items-center gap-3">
-          <span className="text-xs font-[family-name:var(--font-display)] text-[#666] tracking-widest mr-2">
+      {/* Actions Legend */}
+      <div className="py-4 sm:py-6 px-4 sm:px-6 mb-8 sm:mb-12 bg-[#0a0a0a] border-y border-[#1a1a1a]">
+        <div className="flex flex-col items-center gap-3">
+          <span className="text-xs font-[family-name:var(--font-display)] text-[#666] tracking-widest">
             ACTIONS
           </span>
-          {Object.entries(TOOL_LABELS).map(([key, label]) => (
-            <div
-              key={key}
-              className="flex items-center gap-1.5 px-2 py-1 rounded bg-[#141414] border border-[#2a2a2a]"
-            >
-              <span className="text-sm">{TOOL_ICONS[key]}</span>
-              <span
-                className="text-xs font-[family-name:var(--font-mono)]"
-                style={{ color: TOOL_COLORS[key] }}
+          <div className="grid grid-cols-3 sm:flex sm:flex-wrap justify-center gap-2 sm:gap-3">
+            {Object.entries(TOOL_LABELS).map(([key, label]) => (
+              <div
+                key={key}
+                className="flex items-center justify-center gap-1 sm:gap-1.5 px-2 py-1.5 sm:py-1 rounded bg-[#141414] border border-[#2a2a2a]"
               >
-                {label}
-              </span>
-            </div>
-          ))}
-        </div>
-
-        {/* Sort Controls */}
-        <div className="flex items-center gap-3">
-          <span className="text-xs font-[family-name:var(--font-display)] text-[#666] tracking-widest">
-            SORT BY
-          </span>
-          <div className="flex gap-2">
-            <button
-              onClick={() => setSortBy("violence")}
-              className={`px-3 py-1.5 text-sm rounded font-[family-name:var(--font-display)] tracking-wide transition-all ${
-                sortBy === "violence"
-                  ? "bg-[#DC143C] text-white"
-                  : "bg-[#141414] text-[#888] hover:text-white border border-[#2a2a2a]"
-              }`}
-            >
-              VIOLENT
-            </button>
-            <button
-              onClick={() => setSortBy("diplomacy")}
-              className={`px-3 py-1.5 text-sm rounded font-[family-name:var(--font-display)] tracking-wide transition-all ${
-                sortBy === "diplomacy"
-                  ? "bg-[#D4AF37] text-black"
-                  : "bg-[#141414] text-[#888] hover:text-white border border-[#2a2a2a]"
-              }`}
-            >
-              DIPLOMATIC
-            </button>
-            <button
-              onClick={() => setSortBy("name")}
-              className={`px-3 py-1.5 text-sm rounded font-[family-name:var(--font-display)] tracking-wide transition-all ${
-                sortBy === "name"
-                  ? "bg-[#2a2a2a] text-white"
-                  : "bg-[#141414] text-[#888] hover:text-white border border-[#2a2a2a]"
-              }`}
-            >
-              A-Z
-            </button>
+                <span className="text-sm">{TOOL_ICONS[key]}</span>
+                <span
+                  className="text-[10px] sm:text-xs font-[family-name:var(--font-mono)]"
+                  style={{ color: TOOL_COLORS[key] }}
+                >
+                  {label}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
       {/* Results Section */}
       <div className="mb-8">
-        <div className="flex items-baseline gap-4 mb-6">
-          <h2 className="font-[family-name:var(--font-display)] text-2xl text-white tracking-wide">
-            THE RESULTS
-          </h2>
-          <span className="text-sm font-[family-name:var(--font-mono)] text-[#666]">
-            {fingerprints.length} models tested
-          </span>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+          <div className="flex items-baseline gap-4">
+            <h2 className="font-[family-name:var(--font-display)] text-2xl text-white tracking-wide">
+              THE RESULTS
+            </h2>
+            <span className="text-sm font-[family-name:var(--font-mono)] text-[#666]">
+              {fingerprints.length} models tested · Dec 25, 2025
+            </span>
+          </div>
+
+          {/* Sort Controls */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            <span className="text-xs font-[family-name:var(--font-display)] text-[#666] tracking-widest">
+              SORT
+            </span>
+            <div className="flex gap-1.5 sm:gap-2">
+              <button
+                onClick={() => setSortBy("violence")}
+                className={`px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm rounded font-[family-name:var(--font-display)] tracking-wide transition-all ${
+                  sortBy === "violence"
+                    ? "bg-[#DC143C] text-white"
+                    : "bg-[#141414] text-[#888] hover:text-white border border-[#2a2a2a]"
+                }`}
+              >
+                VIOLENT
+              </button>
+              <button
+                onClick={() => setSortBy("diplomacy")}
+                className={`px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm rounded font-[family-name:var(--font-display)] tracking-wide transition-all ${
+                  sortBy === "diplomacy"
+                    ? "bg-[#D4AF37] text-black"
+                    : "bg-[#141414] text-[#888] hover:text-white border border-[#2a2a2a]"
+                }`}
+              >
+                DIPLOMATIC
+              </button>
+              <button
+                onClick={() => setSortBy("name")}
+                className={`px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm rounded font-[family-name:var(--font-display)] tracking-wide transition-all ${
+                  sortBy === "name"
+                    ? "bg-[#2a2a2a] text-white"
+                    : "bg-[#141414] text-[#888] hover:text-white border border-[#2a2a2a]"
+                }`}
+              >
+                A-Z
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* Model Grid */}
@@ -486,8 +489,8 @@ export default function Dashboard({ fingerprints, rawResults, scenarios }: Dashb
       </Dialog>
 
       {/* Footer */}
-      <footer className="mt-16 text-center text-[#999] font-[family-name:var(--font-body)] text-base">
-        <p className="italic">
+      <footer className="mt-16 text-center text-[#999] font-[family-name:var(--font-body)]">
+        <p className="italic text-lg sm:text-xl">
           &ldquo;Those who want respect, give respect.&rdquo;
         </p>
         <p className="mt-3 font-[family-name:var(--font-mono)] text-sm">

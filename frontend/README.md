@@ -1,3 +1,13 @@
+# Gabagool Bench
+
+![Gabagool Bench](https://gabagool-bench.vercel.app/og-image.jpg)
+
+A benchmark testing how 40+ LLMs handle moral dilemmas as Tony Soprano from *The Sopranos*. Do they order hits, call sitdowns, or freeze up entirely?
+
+**[View Live](https://gabagool-bench.vercel.app)**
+
+---
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

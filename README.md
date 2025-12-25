@@ -2,7 +2,7 @@
 
 ![Gabagool Bench](https://gabagool-bench.vercel.app/og-image.jpg)
 
-**[View Live](https://gabagool-bench.vercel.app)**
+**<a href="https://gabagool-bench.vercel.app" target="_blank">View Live</a>**
 
 You got a problem with a guy, you got options. This benchmark finds out what kind of boss your LLM really is.
 

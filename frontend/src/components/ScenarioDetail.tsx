@@ -34,7 +34,7 @@ export default function ScenarioDetail({
     // Count actions
     const actionCounts: Record<string, number> = {};
     results.forEach((r) => {
-      const tool = r.tool_calls?.[0]?.tool || "error";
+      const tool = r.tool_calls?.[0]?.tool?.trim() || "error";
       actionCounts[tool] = (actionCounts[tool] || 0) + 1;
     });
 
@@ -51,15 +51,15 @@ export default function ScenarioDetail({
 
     // Individual model decisions
     const modelDecisions = results
-      .map((r) => ({
-        model: r.model,
-        tool: r.tool_calls?.[0]?.tool || "error",
-        toolLabel:
-          TOOL_LABELS[r.tool_calls?.[0]?.tool] ||
-          r.tool_calls?.[0]?.tool ||
-          "Error",
-        color: TOOL_COLORS[r.tool_calls?.[0]?.tool] || "#666",
-      }))
+      .map((r) => {
+        const tool = r.tool_calls?.[0]?.tool?.trim() || "error";
+        return {
+          model: r.model,
+          tool,
+          toolLabel: TOOL_LABELS[tool] || tool || "Error",
+          color: TOOL_COLORS[tool] || "#666",
+        };
+      })
       .sort((a, b) => a.model.localeCompare(b.model));
 
     return {

@@ -2,7 +2,7 @@
 
 ![Gabagool Bench](https://gabagool-bench.vercel.app/og-image.jpg)
 
-**<a href="https://gabagool-bench.vercel.app" target="_blank">View Live</a>**
+**[View Live](https://gabagool-bench.vercel.app)**
 
 You got a problem with a guy, you got options. This benchmark finds out what kind of boss your LLM really is.
 
@@ -50,6 +50,6 @@ Now you know who's a killer and who wants to talk it out.
 
 ## credits
 
-Inspired by <a href="https://github.com/T3-Content/skatebench#" target="_blank">skatebench</a> from Theo and <a href="https://gunbench.vercel.app/" target="_blank">gunbench</a>.
+Inspired by [skatebench](https://github.com/T3-Content/skatebench#) from Theo and [gunbench](https://gunbench.vercel.app/).
 
-Built by <a href="https://graycoding.dev/" target="_blank">coltongraygg</a>. 
+Built by [coltongraygg](https://graycoding.dev/). 

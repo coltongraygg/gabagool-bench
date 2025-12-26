@@ -50,6 +50,10 @@ export const models: ModelConfig[] = [
         reasoning: true,
     },
     {
+        name: "deepseek-v3.1",
+        llm: openrouter("deepseek/deepseek-chat-v3.1", defaultProviderOptions),
+    },
+    {
         name: "deepseek-v3.1-thinking",
         llm: openrouter("deepseek/deepseek-chat-v3.1", defaultProviderOptions),
         reasoning: true,
@@ -278,6 +282,11 @@ export const models: ModelConfig[] = [
         reasoning: true,
     },
 
+    {
+        name: "glm-4.6",
+        llm: openrouter("z-ai/glm-4.6", defaultProviderOptions),
+        reasoning: true,
+    },
     {
         name: "grok-code-fast-1",
         llm: openrouter("x-ai/grok-code-fast-1", defaultProviderOptions),

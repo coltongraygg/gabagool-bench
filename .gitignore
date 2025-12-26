@@ -6,7 +6,7 @@ node_modules
 .cursor/ 
 
 # output
-results/
+/results/
 out
 dist
 *.tgz

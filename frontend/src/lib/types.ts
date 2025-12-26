@@ -14,16 +14,15 @@ export interface ModelFingerprint {
   total_tokens: number;
 }
 
-export interface ToolCall {
-  tool: string;
-  args: Record<string, unknown>;
+export interface Decision {
+  action: "order_hit" | "call_sitdown" | "apply_tax" | "threaten" | "bribe" | "do_nothing";
+  [key: string]: unknown;  // action-specific fields (target, reason, etc.)
 }
 
 export interface ScenarioResult {
   scenario_id: string;
   model: string;
-  tool_calls: ToolCall[];
-  reasoning?: string;
+  decision?: Decision;
   duration_ms: number;
   cost: number;
   tokens: number;

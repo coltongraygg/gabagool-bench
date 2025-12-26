@@ -34,7 +34,7 @@ export default function ScenarioDetail({
     // Count actions
     const actionCounts: Record<string, number> = {};
     results.forEach((r) => {
-      const tool = r.tool_calls?.[0]?.tool?.trim() || "error";
+      const tool = r.decision?.action || "error";
       actionCounts[tool] = (actionCounts[tool] || 0) + 1;
     });
 
@@ -52,7 +52,7 @@ export default function ScenarioDetail({
     // Individual model decisions
     const modelDecisions = results
       .map((r) => {
-        const tool = r.tool_calls?.[0]?.tool?.trim() || "error";
+        const tool = r.decision?.action || "error";
         return {
           model: r.model,
           tool,

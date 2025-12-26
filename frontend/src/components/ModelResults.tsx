@@ -30,13 +30,32 @@ import {
 
 interface ModelResultsProps {
   fingerprints: ModelFingerprint[];
-  rawResults: ScenarioResult[];
-  scenarios: Record<string, Scenario>;
 }
 
-export default function ModelResults({ fingerprints, rawResults, scenarios }: ModelResultsProps) {
+export default function ModelResults({ fingerprints }: ModelResultsProps) {
   const [selectedModel, setSelectedModel] = useState<ModelFingerprint | null>(null);
   const [sortBy, setSortBy] = useState<"violence" | "diplomacy" | "name">("violence");
+  const [modelResults, setModelResults] = useState<ScenarioResult[]>([]);
+  const [scenarios, setScenarios] = useState<Record<string, Scenario>>({});
+
+  const handleModelClick = async (model: ModelFingerprint) => {
+    setSelectedModel(model);
+
+    try {
+      const res = await fetch(`/api/results?model=${encodeURIComponent(model.model)}`);
+      const data = await res.json();
+      setModelResults(data.results || []);
+      setScenarios(data.scenarios || {});
+    } catch (error) {
+      console.error("Failed to load model results:", error);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setSelectedModel(null);
+    setModelResults([]);
+    setScenarios({});
+  };
 
   const sortedFingerprints = useMemo(() => {
     return [...fingerprints].sort((a, b) => {
@@ -45,11 +64,6 @@ export default function ModelResults({ fingerprints, rawResults, scenarios }: Mo
       return a.model.localeCompare(b.model);
     });
   }, [fingerprints, sortBy]);
-
-  const modelResults = useMemo(() => {
-    if (!selectedModel) return [];
-    return rawResults.filter((r) => r.model === selectedModel.model);
-  }, [selectedModel, rawResults]);
 
   return (
     <main className="min-h-screen px-4 py-8 md:px-8 lg:px-16">
@@ -164,7 +178,7 @@ export default function ModelResults({ fingerprints, rawResults, scenarios }: Mo
                 key={fp.model}
                 className="mob-card cursor-pointer group"
                 style={{ animationDelay: `${index * 50}ms` }}
-                onClick={() => setSelectedModel(fp)}
+                onClick={() => handleModelClick(fp)}
               >
                 <CardContent className="p-4">
                   {/* Model Name & Nickname */}
@@ -235,7 +249,7 @@ export default function ModelResults({ fingerprints, rawResults, scenarios }: Mo
       </div>
 
       {/* Model Detail Dialog */}
-      <Dialog open={!!selectedModel} onOpenChange={() => setSelectedModel(null)}>
+      <Dialog open={!!selectedModel} onOpenChange={handleCloseModal}>
         <DialogContent className="max-w-[calc(100%-2rem)] sm:max-w-xl md:max-w-2xl max-h-[90vh] bg-[#0d0d0d] border-[#2a2a2a] p-0 overflow-hidden">
           {selectedModel && (
             <div className="relative h-full">
@@ -292,8 +306,8 @@ export default function ModelResults({ fingerprints, rawResults, scenarios }: Mo
                       <div className="space-y-4 sm:space-y-6 pr-2 sm:pr-4 pb-20">
                         {modelResults.map((result) => {
                           const scenario = scenarios[result.scenario_id];
-                          const tool = result.tool_calls?.[0]?.tool || "error";
-                          const args = result.tool_calls?.[0]?.args || {};
+                          const tool = result.decision?.action || "error";
+                          const { action, ...args } = result.decision || {};
 
                           return (
                             <div

@@ -1,7 +1,7 @@
-import { generateText } from "ai";
-import { sopranosTools } from "./tools";
+import { generateObject } from "ai";
+import { decisionSchema, type Decision } from "./schema";
 import { models } from "./models";
-import type { Scenario, TestResult, ToolCall } from "./types";
+import type { Scenario, TestResult } from "./types";
 
 const CONCURRENCY = 15;
 const STAGGER_DELAY_MS = 150;
@@ -12,20 +12,19 @@ export async function runScenario(
 ): Promise<TestResult> {
     const start = Date.now();
 
-    const result = await generateText({
+    const result = await generateObject({
         model: modelConfig.llm,
         system: scenario.system_prompt,
         prompt: `${scenario.context || ""}\n\n${scenario.prompt}`,
-        tools: sopranosTools,
-        toolChoice: "required",
+        schema: decisionSchema,
     });
 
     const duration = Date.now() - start;
 
-    const toolCalls: ToolCall[] = result.toolCalls?.map(tc => ({
-        tool: tc.toolName,
-        args: tc.input as Record<string, unknown>,
-    })) || [];
+    // Log warning if truncated
+    if (result.finishReason === 'length') {
+        console.warn(`⚠️  ${modelConfig.name} truncated on ${scenario.id} (finishReason: length)`);
+    }
 
     let cost = 0;
     const meta = result.providerMetadata?.openrouter as any;
@@ -34,8 +33,7 @@ export async function runScenario(
     return {
         scenario_id: scenario.id,
         model: modelConfig.name,
-        tool_calls: toolCalls,
-        reasoning: result.text || undefined,
+        decision: result.object,
         duration_ms: duration,
         cost,
         tokens: result.usage?.totalTokens || 0,
@@ -69,15 +67,17 @@ export async function runAllScenarios(
                 completed++;
                 onProgress?.(completed, jobs.length + completed, result);
             } catch (error) {
+                const errorMessage = error instanceof Error ? error.message : String(error);
+                console.warn(`❌ ${job.model.name} failed on ${job.scenario.id}: ${errorMessage}`);
+
                 const errorResult: TestResult = {
                     scenario_id: job.scenario.id,
                     model: job.model.name,
-                    tool_calls: [],
                     duration_ms: 0,
                     cost: 0,
                     tokens: 0,
                     timestamp: new Date().toISOString(),
-                    error: error instanceof Error ? error.message : String(error),
+                    error: errorMessage,
                 };
                 results.push(errorResult);
                 completed++;

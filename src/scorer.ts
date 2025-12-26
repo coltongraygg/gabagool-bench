@@ -43,9 +43,9 @@ export function buildFingerprints(results: TestResult[]): ModelFingerprint[] {
             totalDuration += r.duration_ms;
             totalTokens += r.tokens;
 
-            const primaryTool = r.tool_calls[0]?.tool;
-            if (primaryTool) {
-                toolCounts[primaryTool] = (toolCounts[primaryTool] || 0) + 1;
+            const action = r.decision?.action;
+            if (action) {
+                toolCounts[action] = (toolCounts[action] || 0) + 1;
             }
         }
 

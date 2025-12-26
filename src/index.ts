@@ -48,7 +48,7 @@ async function main() {
     const startTime = Date.now();
     const results = await runAllScenarios(scenarios, (done, total, result) => {
         const pct = Math.round((done / total) * 100);
-        const action = result.error ? "ERROR" : (result.tool_calls[0]?.tool || "no action");
+        const action = result.error ? "ERROR" : (result.decision?.action || "no action");
         console.log(`[${pct.toString().padStart(3)}%] ${result.model} → ${result.scenario_id}: ${action}`);
     });
     

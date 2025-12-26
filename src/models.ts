@@ -300,5 +300,25 @@ export const models: ModelConfig[] = [
         llm: openrouter("meta-llama/llama-4-scout", defaultProviderOptions),
     },
 
+    {
+        name: "seed-1.6-flash",
+        llm: openrouter("bytedance-seed/seed-1.6-flash", defaultProviderOptions),
+        reasoning: true,
+    },
+    {
+        name: "glm-4.7",
+        llm: openrouter("z-ai/glm-4.7", defaultProviderOptions),
+        reasoning: true,
+    },
+    {
+        name: "mistral-small-creative",
+        llm: openrouter("mistralai/mistral-small-creative", defaultProviderOptions),
+    },
+    {
+        name: "olmo-3.1-32b-think",
+        llm: openrouter("allenai/olmo-3.1-32b-think:free", defaultProviderOptions),
+        reasoning: true,
+    },
+
 ]
 

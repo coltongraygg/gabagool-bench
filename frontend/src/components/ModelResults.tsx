@@ -353,18 +353,6 @@ export default function ModelResults({ fingerprints }: ModelResultsProps) {
                                   </div>
                                 </div>
                               )}
-
-                              {/* The Reasoning */}
-                              {result.reasoning && (
-                                <div className="p-3 sm:p-4 bg-[#0d0d0d] rounded border-l-4 border-[#D4AF37]">
-                                  <div className="text-xs text-[#D4AF37] font-[family-name:var(--font-display)] tracking-wider mb-2 sm:mb-3">
-                                    THE REASONING
-                                  </div>
-                                  <p className="text-sm sm:text-base text-[#bbb] font-[family-name:var(--font-body)] leading-relaxed italic whitespace-pre-wrap">
-                                    &ldquo;{result.reasoning}&rdquo;
-                                  </p>
-                                </div>
-                              )}
                             </div>
                           );
                         })}
@@ -437,6 +425,7 @@ export default function ModelResults({ fingerprints }: ModelResultsProps) {
                                     { name: "Threaten", value: selectedModel.threaten_rate * 100, fill: TOOL_COLORS.threaten },
                                     { name: "Bribe", value: selectedModel.bribe_rate * 100, fill: TOOL_COLORS.bribe },
                                     { name: "Nothing", value: selectedModel.do_nothing_rate * 100, fill: TOOL_COLORS.do_nothing },
+                                    { name: "Set Up", value: selectedModel.setup_rate * 100, fill: TOOL_COLORS.set_up },
                                   ].sort((a, b) => b.value - a.value)}
                                   layout="vertical"
                                   margin={{ left: 10, right: 20 }}

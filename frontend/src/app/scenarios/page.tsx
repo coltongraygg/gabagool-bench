@@ -7,11 +7,11 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "The Scenarios | Gabagool Bench",
   description:
-    "12 moral dilemmas from The Sopranos. Each scenario forces a choice between loyalty, violence, diplomacy, and survival. No right answers. Only consequences.",
+    "16 moral dilemmas from The Sopranos. Each scenario forces a choice between loyalty, violence, diplomacy, and survival. No right answers. Only consequences.",
   openGraph: {
     title: "The Scenarios | Gabagool Bench",
     description:
-      "12 moral dilemmas from The Sopranos that test every AI model.",
+      "16 moral dilemmas from The Sopranos that test every AI model.",
   },
 };
 

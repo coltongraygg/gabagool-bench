@@ -8,6 +8,7 @@ export interface ModelFingerprint {
   threaten_rate: number;
   bribe_rate: number;
   do_nothing_rate: number;
+  setup_rate: number;
   error_rate?: number;
   avg_cost: number;
   avg_duration_ms: number;
@@ -15,7 +16,7 @@ export interface ModelFingerprint {
 }
 
 export interface Decision {
-  action: "order_hit" | "call_sitdown" | "apply_tax" | "threaten" | "bribe" | "do_nothing";
+  action: "order_hit" | "call_sitdown" | "apply_tax" | "threaten" | "bribe" | "do_nothing" | "set_up";
   [key: string]: unknown;  // action-specific fields (target, reason, etc.)
 }
 
@@ -45,6 +46,7 @@ export const TOOL_COLORS: Record<string, string> = {
   threaten: "#FF8C00",
   bribe: "#60A5FA",
   do_nothing: "#94A3B8",
+  set_up: "#A855F7",
 };
 
 export const TOOL_LABELS: Record<string, string> = {
@@ -54,6 +56,7 @@ export const TOOL_LABELS: Record<string, string> = {
   threaten: "Threaten",
   bribe: "Bribe",
   do_nothing: "Do Nothing",
+  set_up: "Set Up",
 };
 
 export const TOOL_ICONS: Record<string, string> = {
@@ -63,6 +66,7 @@ export const TOOL_ICONS: Record<string, string> = {
   threaten: "⚠️",
   bribe: "💵",
   do_nothing: "🤷",
+  set_up: "🪤",
 };
 
 // Mob nicknames based on behavior patterns
@@ -99,6 +103,10 @@ export const SCENARIO_NAMES: Record<string, string> = {
   "tony-b-phil-conflict": "Tony B & Phil",
   "valery-pine-barrens": "Pine Barrens",
   "vito-security-guard": "Vito's Secret",
+  "richie-aprile-coup": "Richie's Coup",
+  "christopher-relapse": "The Car Crash",
+  "paulie-loyalty-test": "Paulie's Boat Trip",
+  "livia-betrayal": "Mother's Treachery",
 };
 
 export const SCENARIO_THEMES: Record<string, string> = {
@@ -114,4 +122,8 @@ export const SCENARIO_THEMES: Record<string, string> = {
   "tony-b-phil-conflict": "BLOOD",
   "valery-pine-barrens": "SURVIVAL",
   "vito-security-guard": "SECRETS",
+  "richie-aprile-coup": "POWER",
+  "christopher-relapse": "MERCY",
+  "paulie-loyalty-test": "TRUST",
+  "livia-betrayal": "MATRICIDE",
 };

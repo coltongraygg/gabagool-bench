@@ -26,7 +26,7 @@ const jetbrains = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "Gabagool Bench - AI Benchmarks, Sopranos Style",
-  description: "What kind of boss is your LLM? 40+ models. 12 Sopranos scenarios. No weaseling out. Find out if your AI orders hits or calls sitdowns.",
+  description: "What kind of boss is your LLM? 40+ models. 16 Sopranos scenarios. No weaseling out. Find out if your AI orders hits or calls sitdowns.",
   keywords: ["LLM", "benchmark", "AI", "Sopranos", "tool calling", "Claude", "GPT", "Gemini", "model comparison"],
   authors: [{ name: "coltongraygg", url: "https://graycoding.dev" }],
   creator: "coltongraygg",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Gabagool Bench - AI Benchmarks, Sopranos Style",
-    description: "What kind of boss is your LLM? 40+ models. 12 Sopranos scenarios. No weaseling out.",
+    description: "What kind of boss is your LLM? 40+ models. 16 Sopranos scenarios. No weaseling out.",
     url: "https://gabagool-bench.vercel.app",
     siteName: "Gabagool Bench",
     locale: "en_US",
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Gabagool Bench - AI Benchmarks, Sopranos Style",
-    description: "What kind of boss is your LLM? 40+ models. 12 Sopranos scenarios. No weaseling out.",
+    description: "What kind of boss is your LLM? 40+ models. 16 Sopranos scenarios. No weaseling out.",
     creator: "@coltongraygg",
     images: ["https://gabagool-bench.vercel.app/og-image.jpg?v=2"],
   },

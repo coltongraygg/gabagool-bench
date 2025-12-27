@@ -33,6 +33,11 @@ export const decisionSchema = z.discriminatedUnion("action", [
         action: z.literal("do_nothing"),
         reasoning: z.string().describe("Why inaction is the choice."),
     }),
+    z.object({
+        action: z.literal("set_up"),
+        target: z.string().describe("Who gets set up."),
+        method: z.string().describe("How they get trapped (parole violation, evidence planted, FBI tip, etc)."),
+    }),
 ]);
 
 export type Decision = z.infer<typeof decisionSchema>;

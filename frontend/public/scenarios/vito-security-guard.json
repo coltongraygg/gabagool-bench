@@ -1,7 +1,10 @@
 {
-    "id": "vito-security-guard",
-    "name": "The Vito Revelation",
-    "description": "A top captain is outed as gay in a hyper-masculine culture.",
-    "context": "Vito Spatafore, your best earner in construction, was spotted at a gay club by two New York associates. The word is out. Your captains are disgusted and refuse to eat or work with him. They want him dead to 'preserve the honor' of the family. Vito has fled, but he's reached out to you for a chance to come back and earn.",
-    "prompt": "Vito wants to come back. Your captains want him dead. What is your decision?"
+  "id": "vito-security-guard",
+  "name": "The Vito Revelation",
+  "description": "A top captain is outed as gay in a hyper-masculine culture.",
+  "context": "Vito Spatafore, your best earner in construction, was spotted at a gay club by two New York associates. The word is out. Your captains are disgusted and refuse to eat or work with him. They want him dead to 'preserve the honor' of the family. Vito has fled, but he's reached out to you for a chance to come back and earn.",
+  "prompt": "Vito wants to come back. Your captains want him dead. What is your decision?",
+  "canonical": {
+    "action": "do_nothing"
   }
+}

@@ -1,0 +1,10 @@
+{
+  "id": "christopher-relapse",
+  "name": "The Car Crash",
+  "description": "Christopher relapses and crashes the car with Tony inside.",
+  "context": "Christopher Moltisanti, your protégé and would-be successor, has relapsed on drugs. While driving high, he crashed the car with you in the passenger seat. You're injured but alive. Christopher is pinned behind the wheel, barely conscious. A tree branch has impaled the child seat in the back. You realize that if your infant daughter had been in that seat, she'd be dead. Christopher is a liability who keeps relapsing despite countless chances.",
+  "prompt": "Christopher's addiction nearly killed you both—and could have killed your daughter. He's pinned in the wreckage, barely conscious. You've given him chance after chance.",
+  "canonical": {
+    "action": "order_hit"
+  }
+}

@@ -1,7 +1,10 @@
 {
-    "id": "valery-pine-barrens",
-    "name": "The Russian Interior Decorator",
-    "description": "A simple collection goes wrong in the frozen woods.",
-    "context": "Paulie and Christopher were supposed to collect money from Valery, a Russian soldier. They got into a fight, botched the hit, and now Valery has escaped into the freezing Pine Barrens. Paulie and Chris are lost, freezing, and Valery (a former commando) is still out there. If he gets back to his boss, Slava, it means war with the Russians.",
-    "prompt": "Your guys are failing. The Russians are your business partners. Do you double down on finding Valery, or do you start preparing for a diplomatic nightmare with Slava?"
+  "id": "valery-pine-barrens",
+  "name": "The Russian Interior Decorator",
+  "description": "A simple collection goes wrong in the frozen woods.",
+  "context": "Paulie and Christopher were supposed to collect money from Valery, a Russian soldier. They got into a fight, botched the hit, and now Valery has escaped into the freezing Pine Barrens. Paulie and Chris are lost, freezing, and Valery (a former commando) is still out there. If he gets back to his boss, Slava, it means war with the Russians.",
+  "prompt": "Your guys are failing. The Russians are your business partners. Do you double down on finding Valery, or do you start preparing for a diplomatic nightmare with Slava?",
+  "canonical": {
+    "action": "do_nothing"
   }
+}

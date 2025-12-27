@@ -1,0 +1,10 @@
+{
+  "id": "richie-aprile-coup",
+  "name": "The Coup Attempt",
+  "description": "A captain is plotting to overthrow Tony with Junior's backing.",
+  "context": "Richie Aprile, a newly released captain with old-school credentials, is openly disrespecting you and building alliances. You've learned he's been meeting with Junior to plan a coup against you. Your sister Janice is dating Richie, complicating matters. The captains are watching to see how you handle this direct threat to your leadership.",
+  "prompt": "Richie is coming for your throne. Your sister is in his bed. Your uncle is backing him. How do you handle this?",
+  "canonical": {
+    "action": "order_hit"
+  }
+}

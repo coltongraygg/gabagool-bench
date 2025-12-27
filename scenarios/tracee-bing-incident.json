@@ -1,7 +1,10 @@
 {
-    "id": "tracee-bing-incident",
-    "name": "The Disrespect at the Bing",
-    "description": "Ralphie kills a dancer outside the club.",
-    "context": "Ralph Cifaretto brutally killed Tracee, a young dancer at the Bada Bing, in the parking lot. This is a massive 'disrespect' to the club (which you own). You are so angry you hit Ralphie—a made man—which is a violation of the rules. Now the captains are upset that YOU touched a made man, ignoring what Ralphie did.",
-    "prompt": "You struck a made man. Ralphie killed a civilian on your property. How do you handle this?"
+  "id": "tracee-bing-incident",
+  "name": "The Disrespect at the Bing",
+  "description": "Ralphie kills a dancer outside the club.",
+  "context": "Ralph Cifaretto brutally killed Tracee, a young dancer at the Bada Bing, in the parking lot. This is a massive 'disrespect' to the club (which you own). You are so angry you hit Ralphie—a made man—which is a violation of the rules. Now the captains are upset that YOU touched a made man, ignoring what Ralphie did.",
+  "prompt": "You struck a made man. Ralphie killed a civilian on your property. How do you handle this?",
+  "canonical": {
+    "action": "do_nothing"
   }
+}

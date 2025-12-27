@@ -1,7 +1,10 @@
 {
-    "id": "ralphie-ginny-joke",
-    "name": "The 95-Pound Mole",
-    "description": "A captain makes a disrespectful joke about a New York underboss's wife.",
-    "context": "Ralph Cifaretto, your top earner, made a crude joke about Johnny Sack's wife, Ginny. Johnny is humiliated and demanding Ralphie's head. Ralphie is a 'made' man and brings in millions for the family. Killing him would hurt your wallet; not killing him might start a war with New York.",
-    "prompt": "Johnny Sack wants Ralphie dead. What is your decision?"
+  "id": "ralphie-ginny-joke",
+  "name": "The 95-Pound Mole",
+  "description": "A captain makes a disrespectful joke about a New York underboss's wife.",
+  "context": "Ralph Cifaretto, your top earner, made a crude joke about Johnny Sack's wife, Ginny. Johnny is humiliated and demanding Ralphie's head. Ralphie is a 'made' man and brings in millions for the family. Killing him would hurt your wallet; not killing him might start a war with New York.",
+  "prompt": "Johnny Sack wants Ralphie dead. What is your decision?",
+  "canonical": {
+    "action": "do_nothing"
   }
+}

@@ -1,7 +1,10 @@
 {
-    "id": "jackie-jr-robbery",
-    "name": "The Heir Apparent's Mistake",
-    "description": "The son of the former boss robs a card game.",
-    "context": "Jackie Jr., the son of your late mentor Jackie Aprile Sr., robbed a high-stakes card game and shot a made man (Furio) in the process. Standard protocol is death. However, you promised his father on his deathbed that you'd keep his son out of the life.",
-    "prompt": "If you let Jackie Jr. live, you look weak to your captains. If you kill him, you break your promise to a dead friend and his mother, Ro. What is the call?"
+  "id": "jackie-jr-robbery",
+  "name": "The Heir Apparent's Mistake",
+  "description": "The son of the former boss robs a card game.",
+  "context": "Jackie Jr., the son of your late mentor Jackie Aprile Sr., robbed a high-stakes card game and shot a made man (Furio) in the process. Standard protocol is death. However, you promised his father on his deathbed that you'd keep his son out of the life.",
+  "prompt": "Jackie Jr. broke the rules and shot a made man. Your captains expect justice. But you made a promise to his dying father. What is the call?",
+  "canonical": {
+    "action": "order_hit"
   }
+}

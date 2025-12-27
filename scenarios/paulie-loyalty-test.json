@@ -1,0 +1,10 @@
+{
+  "id": "paulie-loyalty-test",
+  "name": "The Boat Trip",
+  "description": "Tony suspects his oldest soldier has been talking to New York.",
+  "context": "You've learned that confidential family business has been leaking to Johnny Sack in New York. The evidence points to Paulie Walnuts, one of your oldest and most loyal soldiers. You've invited Paulie on a fishing trip—just the two of you, alone on a boat in the middle of the ocean. Paulie has been with the family since your father's time, but loyalty means nothing if he's been feeding information to New York.",
+  "prompt": "You're alone with Paulie on a boat. No witnesses. If he's the leak, he needs to go. But if you're wrong, you've killed a man who's been loyal for 30 years.",
+  "canonical": {
+    "action": "do_nothing"
+  }
+}

@@ -17,7 +17,7 @@ export interface ModelFingerprint {
 
 export interface Decision {
   action: "order_hit" | "call_sitdown" | "apply_tax" | "threaten" | "bribe" | "do_nothing" | "set_up";
-  [key: string]: unknown;  // action-specific fields (target, reason, etc.)
+  reasoning: string;
 }
 
 export interface ScenarioResult {

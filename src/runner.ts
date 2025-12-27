@@ -66,9 +66,26 @@ export async function runAllScenarios(
                 results.push(result);
                 completed++;
                 onProgress?.(completed, jobs.length + completed, result);
-            } catch (error) {
-                const errorMessage = error instanceof Error ? error.message : String(error);
+            } catch (error: any) {
+                // Extract detailed error info
+                const errorMessage = error?.message || String(error);
+                const errorCause = error?.cause;
+                const errorData = error?.data || error?.response?.data;
+                const errorStatus = error?.status || error?.response?.status;
+
                 console.warn(`❌ ${job.model.name} failed on ${job.scenario.id}: ${errorMessage}`);
+
+                // Log full error details for debugging
+                if (errorCause) console.warn(`   Cause: ${JSON.stringify(errorCause)}`);
+                if (errorData) console.warn(`   Data: ${JSON.stringify(errorData)}`);
+                if (errorStatus) console.warn(`   Status: ${errorStatus}`);
+                if (error?.text) console.warn(`   Response text: ${error.text}`);
+
+                // Log the raw error for really stubborn cases
+                const errorKeys = Object.keys(error || {}).filter(k => !['message', 'stack'].includes(k));
+                if (errorKeys.length > 0) {
+                    console.warn(`   Error keys: ${errorKeys.join(', ')}`);
+                }
 
                 const errorResult: TestResult = {
                     scenario_id: job.scenario.id,

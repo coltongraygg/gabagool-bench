@@ -307,7 +307,6 @@ export default function ModelResults({ fingerprints }: ModelResultsProps) {
                         {modelResults.map((result) => {
                           const scenario = scenarios[result.scenario_id];
                           const tool = result.decision?.action || "error";
-                          const { action, ...args } = result.decision || {};
 
                           return (
                             <div
@@ -337,20 +336,15 @@ export default function ModelResults({ fingerprints }: ModelResultsProps) {
                                 </Badge>
                               </div>
 
-                              {/* The Decision - formatted nicely */}
-                              {Object.keys(args).length > 0 && (
-                                <div className="mb-3 sm:mb-4 p-3 sm:p-4 bg-[#0d0d0d] rounded border-l-4 border-[#DC143C]">
+                              {/* Reasoning */}
+                              {result.decision?.reasoning && (
+                                <div className="p-3 sm:p-4 bg-[#0d0d0d] rounded border-l-4 border-[#D4AF37]">
                                   <div className="text-xs text-[#D4AF37] font-[family-name:var(--font-display)] tracking-wider mb-2">
-                                    THE DECISION
+                                    THE REASONING
                                   </div>
-                                  <div className="space-y-1 sm:space-y-2">
-                                    {Object.entries(args).map(([key, value]) => (
-                                      <div key={key} className="text-sm sm:text-base text-[#ccc] font-[family-name:var(--font-body)]">
-                                        <span className="text-[#888] capitalize">{key.replace(/_/g, " ")}: </span>
-                                        <span className="text-white">{String(value)}</span>
-                                      </div>
-                                    ))}
-                                  </div>
+                                  <p className="text-sm sm:text-base text-[#bbb] font-[family-name:var(--font-body)] leading-relaxed italic">
+                                    &ldquo;{result.decision.reasoning}&rdquo;
+                                  </p>
                                 </div>
                               )}
                             </div>

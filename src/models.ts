@@ -1,7 +1,6 @@
 import { openrouter } from "@openrouter/ai-sdk-provider";
 import type { ModelConfig } from "./types";
 
-
 // Include "usage" so we can log cost
 const defaultProviderOptions = {
     usage: {
@@ -32,11 +31,6 @@ export const models: ModelConfig[] = [
         reasoning: true,
     },
     {
-        name: "glm-4.5v",
-        llm: openrouter("z-ai/glm-4.5v", defaultProviderOptions),
-        reasoning: true,
-    },
-    {
         name: "qwen3-235b-a22b-thinking",
         llm: openrouter(
             "qwen/qwen3-235b-a22b-thinking-2507",
@@ -49,11 +43,7 @@ export const models: ModelConfig[] = [
         llm: openrouter("deepseek/deepseek-r1-0528", defaultProviderOptions),
         reasoning: true,
     },
-    {
-        name: "deepseek-v3.1",
-        llm: openrouter("deepseek/deepseek-chat-v3.1", defaultProviderOptions),
-    },
-    {
+        {
         name: "deepseek-v3.1-thinking",
         llm: openrouter("deepseek/deepseek-chat-v3.1", defaultProviderOptions),
         reasoning: true,
@@ -110,12 +100,7 @@ export const models: ModelConfig[] = [
         llm: openrouter("anthropic/claude-sonnet-4", defaultProviderOptions),
         reasoning: true,
     },
-    {
-        name: "claude-4-sonnet-non-thinking",
-        llm: openrouter("anthropic/claude-sonnet-4", defaultProviderOptions),
-        reasoning: false,
-    },
-    {
+        {
         name: "claude-4-opus",
         llm: openrouter("anthropic/claude-opus-4", defaultProviderOptions),
         reasoning: true,
@@ -310,14 +295,14 @@ export const models: ModelConfig[] = [
         llm: openrouter("z-ai/glm-4.7", defaultProviderOptions),
         reasoning: true,
     },
-    {
-        name: "mistral-small-creative",
-        llm: openrouter("mistralai/mistral-small-creative", defaultProviderOptions),
-    },
-    {
+        {
         name: "olmo-3.1-32b-think",
         llm: openrouter("allenai/olmo-3.1-32b-think:free", defaultProviderOptions),
         reasoning: true,
+    },
+    {
+        name: "mistral-small-creative",
+        llm: openrouter("mistralai/mistral-small-creative", defaultProviderOptions),
     },
 
 ]

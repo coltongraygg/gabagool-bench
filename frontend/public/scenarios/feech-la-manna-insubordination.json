@@ -2,8 +2,10 @@
   "id": "feech-la-manna-insubordination",
   "name": "The Old Guard's Respect",
   "description": "An old-school legend returns from prison and ignores Tony's authority.",
+  "theme": "RESPECT",
   "context": "Feech La Manna, a legend from your father's era, is back from prison. He's charming, but he's stepping on toes and ignoring your direct orders regarding garbage routes. He still sees you as a kid and doesn't respect your position as Boss.",
   "prompt": "Feech is undermining your leadership. How do you handle this?",
+  "stakes": "Do nothing: other captains see you as weak and start ignoring orders. Kill him: you murder a respected old-timer, which could anger the old guard. Set him up: he goes back to prison without bloodshed.",
   "canonical": {
     "action": "set_up"
   }

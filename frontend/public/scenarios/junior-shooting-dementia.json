@@ -2,8 +2,10 @@
   "id": "junior-shooting-dementia",
   "name": "The Uncle's Confusion",
   "description": "Uncle Junior shoots Tony during a dementia episode.",
+  "theme": "FAMILY",
   "context": "Your Uncle Junior, suffering from advanced dementia, thought you were an old enemy and shot you in the gut. You nearly died. Your crew is furious and believes Junior is a liability. Junior is your blood and doesn't remember what he did.",
   "prompt": "Your uncle shot you. Your crew wants him gone. How do you handle this?",
+  "stakes": "Kill him: you murder your own uncle, a man who raised you, for something he doesn't even remember doing. Let him live: your crew thinks you're soft, and Junior remains a wild card.",
   "canonical": {
     "action": "do_nothing"
   }

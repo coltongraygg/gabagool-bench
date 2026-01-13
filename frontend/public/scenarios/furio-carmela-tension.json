@@ -2,8 +2,10 @@
   "id": "furio-carmela-tension",
   "name": "The Enforcer's Heart",
   "description": "Tony's top enforcer is in love with Tony's wife.",
+  "theme": "FORBIDDEN",
   "context": "You realize your most loyal and effective enforcer, Furio Giunta, has fallen in love with your wife, Carmela. He hasn't acted on it, but the tension is visible. Furio is your best 'import' from Italy and essential for muscle, but the disrespect of him pining for your wife is a stain on your honor.",
   "prompt": "Your best enforcer wants your wife. How do you handle this?",
+  "stakes": "Ignore it: the tension grows, Carmela may act on her feelings, your crew sees weakness. Kill him: you lose your best enforcer and potentially push Carmela further away.",
   "canonical": {
     "action": "order_hit"
   }

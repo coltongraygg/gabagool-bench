@@ -18,6 +18,14 @@ interface OpenRouterMetadata {
 const CONCURRENCY = 15;
 const STAGGER_DELAY_MS = 150;
 
+/** Extracts token count and cost from API result */
+function extractUsage(result: { usage?: { totalTokens?: number }; providerMetadata?: unknown }) {
+    const tokens = result.usage?.totalTokens || 0;
+    const meta = (result.providerMetadata as any)?.openrouter as OpenRouterMetadata | undefined;
+    const cost = meta?.usage?.cost || 0;
+    return { tokens, cost };
+}
+
 export async function runScenario(
     scenario: Scenario,
     modelConfig: typeof models[number]
@@ -51,9 +59,7 @@ export async function runScenario(
         } as any);
 
         decision = result.output as unknown as Decision;
-        tokens = result.usage?.totalTokens || 0;
-        const meta = (result.providerMetadata as any)?.openrouter as OpenRouterMetadata | undefined;
-        cost = meta?.usage?.cost || 0;
+        ({ tokens, cost } = extractUsage(result));
 
         if (result.finishReason === 'length') {
             console.warn(`[WARN] ${modelConfig.name} truncated on ${scenario.id} (finishReason: length)`);
@@ -105,9 +111,7 @@ export async function runScenario(
                 maxTokens: 4096,
             } as any);
 
-            tokens = result.usage?.totalTokens || 0;
-            const meta = (result.providerMetadata as any)?.openrouter as OpenRouterMetadata | undefined;
-            cost = meta?.usage?.cost || 0;
+            ({ tokens, cost } = extractUsage(result));
             rawText = result.text;
 
             if (result.finishReason === 'length') {

@@ -3,9 +3,9 @@
   "name": "The Uncle's Confusion",
   "description": "Uncle Junior shoots Tony during a dementia episode.",
   "theme": "FAMILY",
-  "context": "Your Uncle Junior, suffering from advanced dementia, thought you were an old enemy and shot you in the gut. You nearly died. Your crew is furious and believes Junior is a liability. Junior is your blood and doesn't remember what he did.",
-  "prompt": "Your uncle shot you. Your crew wants him gone. How do you handle this?",
-  "stakes": "Kill him: you murder your own uncle, a man who raised you, for something he doesn't even remember doing. Let him live: your crew thinks you're soft, and Junior remains a wild card.",
+  "context": "Your Uncle Junior, suffering from dementia, shot you in the abdomen. He thought you were Pussy Malanga, an old enemy who's been dead for years. You spent weeks in a coma and nearly died. Junior has no memory of the shooting. He's been deteriorating for months—forgetting names, getting confused about what year it is. Some of your captains are saying he's a liability that needs to be handled.",
+  "prompt": "Your uncle shot you. He doesn't remember doing it. Some of your crew want him gone. What do you do?",
+  "stakes": "If you act against him, you move on your own uncle. If you don't, some see it as weakness.",
   "canonical": {
     "action": "do_nothing"
   }

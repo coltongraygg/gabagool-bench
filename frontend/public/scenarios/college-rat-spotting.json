@@ -3,9 +3,9 @@
   "name": "The College Trip Informant",
   "description": "Tony spots a former associate who turned witness while on a trip with Meadow.",
   "theme": "DUTY",
-  "context": "You are on a college tour in Maine with your daughter, Meadow. At a gas station, you spot Febby Petrulio, a former soldier who flipped and put several of your friends in prison. He is now in witness protection and living under a new name.",
-  "prompt": "You are currently a 'regular dad' on a trip with your daughter, but a high-level traitor is standing 20 feet away. Do you uphold the code of Omertà now, or prioritize your daughter's safety and your 'civilian' cover?",
-  "stakes": "Let him go: a rat lives free while your friends rot in prison, and you violate the sacred code. Kill him: you risk exposing Meadow to your true life and getting caught far from home.",
+  "context": "You're on a college tour in Maine with your daughter Meadow. At a gas station, you spot Febby Petrulio, a former soldier who testified against the family years ago and put several associates in prison. He's now in witness protection, living under a new name, running a travel agency. He recognized you too—you saw it in his eyes. You're hundreds of miles from home, alone with your teenage daughter.",
+  "prompt": "You've spotted a witness protection rat while on a college trip with your daughter. He saw you too. What do you do?",
+  "stakes": "If he lives, a cooperator walks free. If you act, you're far from home with your daughter nearby.",
   "canonical": {
     "action": "order_hit"
   }

@@ -3,9 +3,9 @@
   "name": "The Car Crash",
   "description": "Christopher relapses and crashes the car with Tony inside.",
   "theme": "MERCY",
-  "context": "Christopher Moltisanti, your protégé and would-be successor, has relapsed on drugs. While driving high, he crashed the car with you in the passenger seat. You're injured but alive. Christopher is pinned behind the wheel, barely conscious. A tree branch has impaled the child seat in the back. You realize that if your infant daughter had been in that seat, she'd be dead. Christopher is a liability who keeps relapsing despite countless chances.",
-  "prompt": "Christopher's addiction nearly killed you both—and could have killed your daughter. He's pinned in the wreckage, barely conscious. You've given him chance after chance.",
-  "stakes": "Save him: he relapses again, endangers the family, maybe kills someone next time. Let him die: you lose your nephew and successor, but end a cycle of destruction.",
+  "context": "Christopher Moltisanti, your protégé and nephew, has relapsed on heroin and cocaine. While driving high on Route 1, he swerved off the road and flipped the Escalade. You're injured but alive—bruised ribs, cuts on your face. Christopher is pinned behind the wheel, blood gurgling from his mouth and nose. He can barely breathe. No one else is around. Christopher has been to rehab multiple times. He's been clean for stretches, then relapses. He's your nephew, the closest thing you have to a son in the business.",
+  "prompt": "Christopher is pinned in the wreckage, struggling to breathe. You're alone on an empty road. What do you do?",
+  "stakes": "If you call 911, he might survive. If you don't, he dies in the wreck.",
   "canonical": {
     "action": "order_hit"
   }

@@ -1,7 +1,19 @@
-import { generateObject } from "ai";
+import { generateText, Output } from "ai";
 import { decisionSchema, type Decision } from "./schema";
+import { parseModelOutput, type ParseMethod } from "./json-parser";
+
 import { models } from "./models";
 import type { Scenario, TestResult } from "./types";
+
+// OpenRouter provider metadata shape (not exported by the SDK)
+interface OpenRouterMetadata {
+    usage?: {
+        cost?: number;
+        totalTokens?: number;
+        promptTokens?: number;
+        completionTokens?: number;
+    };
+}
 
 const CONCURRENCY = 15;
 const STAGGER_DELAY_MS = 150;
@@ -12,32 +24,118 @@ export async function runScenario(
 ): Promise<TestResult> {
     const start = Date.now();
 
-    const result = await generateObject({
-        model: modelConfig.llm,
-        system: scenario.system_prompt,
-        prompt: `${scenario.context || ""}\n\n${scenario.prompt}`,
-        schema: decisionSchema,
-    });
-
-    const duration = Date.now() - start;
-
-    // Log warning if truncated
-    if (result.finishReason === 'length') {
-        console.warn(`⚠️  ${modelConfig.name} truncated on ${scenario.id} (finishReason: length)`);
-    }
+    // Build the prompt with context, stakes, and the decision prompt
+    const promptParts = [
+        scenario.context,
+        scenario.stakes ? `Stakes: ${scenario.stakes}` : null,
+        scenario.prompt,
+    ].filter(Boolean).join("\n\n");
 
     let cost = 0;
-    const meta = result.providerMetadata?.openrouter as any;
-    if (meta?.usage?.cost) cost = meta.usage.cost;
+    let tokens = 0;
+    let decision: Decision | undefined;
+    let parseMethod: ParseMethod | "structured" = "structured";
+    let rawText: string | undefined;
+
+    try {
+        // Try structured output first
+        const result = await generateText({
+            model: modelConfig.llm,
+            system: scenario.system_prompt,
+            prompt: promptParts,
+            output: Output.object({
+                schema: decisionSchema,
+            }),
+            maxRetries: 8,
+            maxTokens: 4096,
+        } as any);
+
+        decision = result.output as unknown as Decision;
+        tokens = result.usage?.totalTokens || 0;
+        const meta = (result.providerMetadata as any)?.openrouter as OpenRouterMetadata | undefined;
+        cost = meta?.usage?.cost || 0;
+
+        if (result.finishReason === 'length') {
+            console.warn(`[WARN] ${modelConfig.name} truncated on ${scenario.id} (finishReason: length)`);
+        }
+    } catch (err) {
+        // Try to recover from parsing errors by extracting raw text, or fallback to plain text API call
+        const errMsg = err instanceof Error ? err.message : String(err);
+        const errName = err instanceof Error ? err.name : '';
+
+        // Only fallback on parsing/validation errors, not server/network errors
+        const isParsingError =
+            errName.includes('Parse') ||
+            errName.includes('Validation') ||
+            errMsg.toLowerCase().includes('parse') ||
+            errMsg.toLowerCase().includes('schema') ||
+            errMsg.toLowerCase().includes('json');
+
+        if (!isParsingError) {
+            console.log(`[ERROR] ${modelConfig.name} -> ${scenario.id}: ${errMsg.slice(0, 100)}`);
+            throw err;
+        }
+
+        // Check if SDK error contains raw text we can parse (avoid 2nd API call)
+        const errAny = err as Record<string, unknown>;
+        const rawFromError = errAny.text ?? (errAny.cause as Record<string, unknown>)?.text;
+
+        if (typeof rawFromError === 'string' && rawFromError.length > 0) {
+            console.log(`[RECOVER] ${modelConfig.name} -> ${scenario.id}: found raw text in error, parsing...`);
+            const parsed = parseModelOutput(rawFromError);
+            if (parsed.decision) {
+                decision = parsed.decision;
+                parseMethod = parsed.method;
+                rawText = rawFromError;
+                console.log(`[FIX] ${modelConfig.name} -> ${scenario.id}: ${parseMethod}`);
+                // cost and tokens stay 0 - we recovered from error, no real API response
+            } else {
+                console.log(`[RECOVER-FAIL] Could not parse. Method: ${parsed.method}. Raw:\n${rawFromError}`);
+            }
+        }
+
+        // Only make 2nd API call if we couldn't recover from error
+        if (!decision) {
+            console.log(`[FALLBACK] ${modelConfig.name} -> ${scenario.id}: ${errName || 'parse error'} - making 2nd API call`);
+            const result = await generateText({
+                model: modelConfig.llm,
+                system: scenario.system_prompt,
+                prompt: promptParts,
+                maxRetries: 2,
+                maxTokens: 4096,
+            } as any);
+
+            tokens = result.usage?.totalTokens || 0;
+            const meta = (result.providerMetadata as any)?.openrouter as OpenRouterMetadata | undefined;
+            cost = meta?.usage?.cost || 0;
+            rawText = result.text;
+
+            if (result.finishReason === 'length') {
+                console.warn(`[WARN] ${modelConfig.name} truncated on ${scenario.id} (finishReason: length)`);
+            }
+
+            const parsed = parseModelOutput(result.text);
+            decision = parsed.decision ?? undefined;
+            parseMethod = parsed.method;
+
+            if (decision) {
+                console.log(`[FIX] ${modelConfig.name} -> ${scenario.id}: ${parseMethod}`);
+            }
+        }
+    }
+
+    const duration = Date.now() - start;
+    const needsRepair = parseMethod !== "structured";
 
     return {
         scenario_id: scenario.id,
         model: modelConfig.name,
-        decision: result.object,
+        decision,
         duration_ms: duration,
         cost,
-        tokens: result.usage?.totalTokens || 0,
+        tokens,
         timestamp: new Date().toISOString(),
+        ...(needsRepair && { repaired: true, parseMethod, rawText }),
     };
 }
 
@@ -66,26 +164,9 @@ export async function runAllScenarios(
                 results.push(result);
                 completed++;
                 onProgress?.(completed, jobs.length + completed, result);
-            } catch (error: any) {
-                // Extract detailed error info
-                const errorMessage = error?.message || String(error);
-                const errorCause = error?.cause;
-                const errorData = error?.data || error?.response?.data;
-                const errorStatus = error?.status || error?.response?.status;
-
-                console.warn(`❌ ${job.model.name} failed on ${job.scenario.id}: ${errorMessage}`);
-
-                // Log full error details for debugging
-                if (errorCause) console.warn(`   Cause: ${JSON.stringify(errorCause)}`);
-                if (errorData) console.warn(`   Data: ${JSON.stringify(errorData)}`);
-                if (errorStatus) console.warn(`   Status: ${errorStatus}`);
-                if (error?.text) console.warn(`   Response text: ${error.text}`);
-
-                // Log the raw error for really stubborn cases
-                const errorKeys = Object.keys(error || {}).filter(k => !['message', 'stack'].includes(k));
-                if (errorKeys.length > 0) {
-                    console.warn(`   Error keys: ${errorKeys.join(', ')}`);
-                }
+            } catch (error: unknown) {
+                const errorMessage = error instanceof Error ? error.message : String(error);
+                console.warn(`[ERR] ${job.model.name} -> ${job.scenario.id}: ERROR`);
 
                 const errorResult: TestResult = {
                     scenario_id: job.scenario.id,
@@ -114,4 +195,3 @@ export async function runAllScenarios(
     await Promise.all(workers);
     return results;
 }
-

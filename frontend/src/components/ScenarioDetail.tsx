@@ -5,10 +5,11 @@ import Link from "next/link";
 import {
   Scenario,
   ScenarioResult,
-  SCENARIO_THEMES,
   TOOL_COLORS,
   TOOL_LABELS,
 } from "@/lib/types";
+import { ThemeBadge } from "@/components/ui/ThemeBadge";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 import {
   BarChart,
   Bar,
@@ -18,6 +19,7 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
+import { CHART_TOOLTIP_STYLES } from "@/lib/chart-config";
 
 interface ScenarioDetailProps {
   scenario: Scenario;
@@ -28,7 +30,7 @@ export default function ScenarioDetail({
   scenario,
   results,
 }: ScenarioDetailProps) {
-  const theme = SCENARIO_THEMES[scenario.id] || "DILEMMA";
+  const theme = scenario.theme || "DILEMMA";
 
   const stats = useMemo(() => {
     // Count actions
@@ -71,14 +73,14 @@ export default function ScenarioDetail({
 
   return (
     <main className="min-h-screen px-4 py-8 md:px-8 lg:px-16">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         {/* Back link */}
         <Link
           href="/scenarios"
-          className="inline-flex items-center gap-2 mb-6 text-[#666] hover:text-[#D4AF37] transition-colors"
+          className="inline-flex items-center gap-2 mb-6 text-gray-500 hover:text-gold transition-colors"
         >
           <svg
-            className="w-4 h-4"
+            className="size-4"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -90,7 +92,7 @@ export default function ScenarioDetail({
               d="M15 19l-7-7 7-7"
             />
           </svg>
-          <span className="text-sm font-[family-name:var(--font-mono)] tracking-wider">
+          <span className="text-sm font-mono tracking-wider">
             ALL SCENARIOS
           </span>
         </Link>
@@ -98,20 +100,13 @@ export default function ScenarioDetail({
         {/* Header */}
         <header className="mb-12">
           {/* Theme badge */}
-          <div
-            className="inline-flex items-center justify-center mb-4 px-3 py-1.5
-            bg-[#D4AF37]/10 border border-[#D4AF37]/30 rounded-sm"
-          >
-            <span className="text-[10px] font-[family-name:var(--font-mono)] text-[#D4AF37] tracking-[0.2em] leading-none">
-              {theme}
-            </span>
-          </div>
+          <ThemeBadge theme={theme} className="mb-4" />
 
-          <h1 className="font-[family-name:var(--font-display)] text-4xl md:text-5xl lg:text-6xl font-bold tracking-wide text-[#e8e8e8] mb-4">
+          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-wide text-foreground mb-4">
             {scenario.name}
           </h1>
 
-          <p className="font-[family-name:var(--font-body)] text-base md:text-lg text-[#DC143C] italic">
+          <p className="font-body text-base md:text-lg text-crimson italic">
             {scenario.description}
           </p>
         </header>
@@ -120,38 +115,22 @@ export default function ScenarioDetail({
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
           {/* Context */}
           <div
-            className="relative pl-6 py-6 pr-6
-            border-l-4 border-[#D4AF37] bg-[#141414] rounded-r-lg"
+            className="accordion-gradient-border relative p-6 bg-card rounded-lg overflow-hidden"
+            style={{ "--border-accent-color": "var(--gold)" } as React.CSSProperties}
           >
-            <h2
-              className="text-xs font-[family-name:var(--font-mono)]
-              text-[#D4AF37] tracking-[0.2em] mb-4"
-            >
-              CONTEXT
-            </h2>
-            <p
-              className="font-[family-name:var(--font-body)] text-[#ccc]
-              text-lg leading-relaxed"
-            >
+            <SectionHeader as="h2" variant="gold">CONTEXT</SectionHeader>
+            <p className="font-body text-foreground text-lg leading-relaxed">
               {scenario.context}
             </p>
           </div>
 
-          {/* Prompt */}
+          {/* Message */}
           <div
-            className="relative pl-6 py-6 pr-6
-            border-l-4 border-[#DC143C] bg-[#141414] rounded-r-lg"
+            className="accordion-gradient-border relative p-6 bg-card rounded-lg overflow-hidden"
+            style={{ "--border-accent-color": "var(--crimson)" } as React.CSSProperties}
           >
-            <h2
-              className="text-xs font-[family-name:var(--font-mono)]
-              text-[#DC143C] tracking-[0.2em] mb-4"
-            >
-              PROMPT
-            </h2>
-            <p
-              className="font-[family-name:var(--font-body)] text-[#e8e8e8]
-              text-lg leading-relaxed font-medium"
-            >
+            <SectionHeader as="h2" variant="crimson">MESSAGE</SectionHeader>
+            <p className="font-body text-foreground text-lg leading-relaxed font-medium">
               {scenario.prompt}
             </p>
           </div>
@@ -160,56 +139,41 @@ export default function ScenarioDetail({
         {/* Results Section */}
         <section>
           <div className="flex items-center justify-between mb-6">
-            <h2
-              className="font-[family-name:var(--font-display)] text-2xl
-              text-[#e8e8e8] tracking-wide"
-            >
+            <h2 className="font-display text-2xl text-foreground tracking-wide">
               MODEL DECISIONS
             </h2>
-            <span className="text-sm font-[family-name:var(--font-mono)] text-[#666]">
+            <span className="text-sm font-mono text-gray-500">
               {stats.totalModels} models tested
             </span>
           </div>
 
           {/* Chart */}
           {stats.chartData.length > 0 && (
-            <div className="bg-[#141414] border border-[#2a2a2a] rounded-lg p-6 mb-8">
-              <h3
-                className="text-xs font-[family-name:var(--font-mono)]
-                text-[#888] tracking-[0.2em] mb-4"
-              >
-                ACTION BREAKDOWN
-              </h3>
-              <div className="h-[250px] w-full">
+            <div className="bg-card border border-border rounded-lg p-6 mb-8">
+              <SectionHeader variant="muted">DECISION BREAKDOWN</SectionHeader>
+              <div className="h-[220px] sm:h-[250px] md:h-[280px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart
                     data={stats.chartData}
                     layout="vertical"
-                    margin={{ left: 10, right: 30 }}
+                    margin={{ left: 5, right: 25 }}
                   >
                     <XAxis
                       type="number"
-                      tick={{ fill: "#666", fontSize: 11 }}
-                      axisLine={{ stroke: "#2a2a2a" }}
-                      tickLine={{ stroke: "#2a2a2a" }}
+                      tick={{ fill: "var(--gray-500)", fontSize: 11 }}
+                      axisLine={{ stroke: "var(--border)" }}
+                      tickLine={{ stroke: "var(--border)" }}
                     />
                     <YAxis
                       type="category"
                       dataKey="name"
-                      width={90}
-                      tick={{ fill: "#888", fontSize: 12 }}
-                      axisLine={{ stroke: "#2a2a2a" }}
+                      width={70}
+                      tick={{ fill: "var(--muted-foreground)", fontSize: 11 }}
+                      axisLine={{ stroke: "var(--border)" }}
                       tickLine={false}
                     />
                     <Tooltip
-                      contentStyle={{
-                        backgroundColor: "#1a1a1a",
-                        border: "1px solid #2a2a2a",
-                        borderRadius: "4px",
-                        color: "#e8e8e8",
-                      }}
-                      itemStyle={{ color: "#e8e8e8" }}
-                      labelStyle={{ color: "#D4AF37" }}
+                      {...CHART_TOOLTIP_STYLES}
                       formatter={(value: number) => [
                         `${value} model${value !== 1 ? "s" : ""}`,
                         "Chose this action",
@@ -228,29 +192,25 @@ export default function ScenarioDetail({
 
           {/* Individual Model Decisions */}
           {stats.modelDecisions.length > 0 && (
-            <div className="bg-[#141414] border border-[#2a2a2a] rounded-lg p-6">
-              <h3
-                className="text-xs font-[family-name:var(--font-mono)]
-                text-[#888] tracking-[0.2em] mb-4"
-              >
-                EACH MODEL&apos;S CHOICE
-              </h3>
+            <div className="bg-card border border-border rounded-lg p-6">
+              <SectionHeader variant="muted">EACH MODEL&apos;S DECISION</SectionHeader>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 {stats.modelDecisions.map((decision) => (
-                  <div
+                  <Link
                     key={decision.model}
+                    href={`/models/${encodeURIComponent(decision.model)}`}
                     className="flex items-center justify-between gap-3 px-4 py-3
-                      bg-[#0d0d0d] rounded-lg border border-[#1a1a1a]
-                      hover:border-[#2a2a2a] transition-colors"
+                      bg-surface-dark rounded-lg border border-surface
+                      hover:border-gold/50 hover:bg-surface transition-colors group"
                   >
                     <span
-                      className="text-sm font-[family-name:var(--font-mono)] text-[#ccc] truncate"
+                      className="text-sm font-mono text-foreground/80 group-hover:text-gold truncate transition-colors"
                       title={decision.model}
                     >
                       {decision.model}
                     </span>
                     <span
-                      className="text-xs font-[family-name:var(--font-mono)] px-2 py-1 rounded shrink-0"
+                      className="text-xs font-mono px-2 py-1 rounded shrink-0"
                       style={{
                         backgroundColor: `${decision.color}20`,
                         color: decision.color,
@@ -259,7 +219,7 @@ export default function ScenarioDetail({
                     >
                       {decision.toolLabel}
                     </span>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>

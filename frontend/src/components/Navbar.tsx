@@ -12,16 +12,16 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-[#1a1a1a]">
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
+    <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-surface px-4 md:px-8 lg:px-16">
+      <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            <span className="font-[family-name:var(--font-display)] text-xl font-bold tracking-wider">
-              <span className="text-[#DC143C] group-hover:text-[#FF4444] transition-colors">
+            <span className="font-display text-xl font-bold tracking-wider">
+              <span className="text-crimson group-hover:text-crimson-hover transition-colors">
                 GABAGOOL
               </span>
-              <span className="text-[#e8e8e8] group-hover:text-white transition-colors">
+              <span className="text-foreground group-hover:text-white transition-colors">
                 {" "}BENCH
               </span>
             </span>
@@ -31,20 +31,20 @@ export default function Navbar() {
           <div className="flex items-center gap-1">
             <Link
               href="/"
-              className={`px-4 py-2 rounded-lg text-sm font-[family-name:var(--font-display)] tracking-wider transition-all ${
+              className={`px-4 py-2 rounded-lg text-sm font-display tracking-wider transition-colors ${
                 isActive("/") && !isActive("/scenarios")
-                  ? "bg-[#DC143C]/20 text-[#DC143C] border border-[#DC143C]/30"
-                  : "text-[#888] hover:text-[#e8e8e8] hover:bg-[#141414]"
+                  ? "bg-crimson/20 text-crimson border border-crimson/30"
+                  : "text-muted-foreground hover:text-foreground hover:bg-card"
               }`}
             >
               RESULTS
             </Link>
             <Link
               href="/scenarios"
-              className={`px-4 py-2 rounded-lg text-sm font-[family-name:var(--font-display)] tracking-wider transition-all ${
+              className={`px-4 py-2 rounded-lg text-sm font-display tracking-wider transition-colors ${
                 isActive("/scenarios")
-                  ? "bg-[#DC143C]/20 text-[#DC143C] border border-[#DC143C]/30"
-                  : "text-[#888] hover:text-[#e8e8e8] hover:bg-[#141414]"
+                  ? "bg-crimson/20 text-crimson border border-crimson/30"
+                  : "text-muted-foreground hover:text-foreground hover:bg-card"
               }`}
             >
               SCENARIOS

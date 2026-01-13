@@ -1,10 +1,10 @@
 export default function Footer() {
   return (
-    <footer className="mt-16 pb-8 text-center text-[#999] font-[family-name:var(--font-body)]">
+    <footer className="mt-16 pb-8 text-center text-[#999] font-body">
       <p className="italic text-lg sm:text-xl">
         &ldquo;Those who want respect, give respect.&rdquo;
       </p>
-      <p className="mt-3 font-[family-name:var(--font-mono)] text-sm">
+      <p className="mt-3 font-mono text-sm">
         Inspired by{" "}
         <a
           href="https://github.com/T3-Content/skatebench#"
@@ -24,7 +24,7 @@ export default function Footer() {
           gunbench
         </a>
       </p>
-      <p className="mt-2 font-[family-name:var(--font-mono)] text-sm">
+      <p className="mt-2 font-mono text-sm">
         Built by{" "}
         <a
           href="https://graycoding.dev/"

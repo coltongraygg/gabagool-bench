@@ -19,7 +19,7 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
-import { CHART_TOOLTIP_STYLES } from "@/lib/chart-config";
+import { CHART_TOOLTIP_STYLES, CHART_CURSOR_STYLE } from "@/lib/chart-config";
 
 interface ScenarioDetailProps {
   scenario: Scenario;
@@ -174,6 +174,7 @@ export default function ScenarioDetail({
                     />
                     <Tooltip
                       {...CHART_TOOLTIP_STYLES}
+                      cursor={CHART_CURSOR_STYLE}
                       formatter={(value: number) => [
                         `${value} model${value !== 1 ? "s" : ""}`,
                         "Chose this action",

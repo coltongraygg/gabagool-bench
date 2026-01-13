@@ -32,7 +32,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { CHART_TOOLTIP_STYLES } from "@/lib/chart-config";
+import { CHART_TOOLTIP_STYLES, CHART_CURSOR_STYLE } from "@/lib/chart-config";
 
 const TAB_TRIGGER_CLASS = "px-5 py-3 text-sm sm:px-8 sm:py-3.5 sm:text-base data-[state=active]:bg-crimson data-[state=active]:text-white data-[state=inactive]:text-muted-foreground font-display tracking-wider rounded-md transition-colors";
 
@@ -357,6 +357,7 @@ export default function ModelDetail({
                       </Pie>
                       <Tooltip
                         {...CHART_TOOLTIP_STYLES}
+                        cursor={CHART_CURSOR_STYLE}
                         formatter={(value: number, name: string) => [
                           `${value} scenarios`,
                           TOOL_LABELS[name] || name,
@@ -428,6 +429,7 @@ export default function ModelDetail({
                       />
                       <Tooltip
                         {...CHART_TOOLTIP_STYLES}
+                        cursor={CHART_CURSOR_STYLE}
                         formatter={(value: number) => [`${value.toFixed(1)}%`]}
                       />
                       <Bar

@@ -1,6 +1,5 @@
 import type { CSSProperties } from "react";
 
-// Shared tooltip styles for Recharts components
 export const CHART_TOOLTIP_STYLES = {
   contentStyle: {
     backgroundColor: "var(--surface)",
@@ -11,4 +10,9 @@ export const CHART_TOOLTIP_STYLES = {
   } as CSSProperties,
   itemStyle: { color: "var(--foreground)" } as CSSProperties,
   labelStyle: { color: "var(--gold)" } as CSSProperties,
+};
+
+export const CHART_CURSOR_STYLE = {
+  fill: "rgba(212, 175, 55, 0.04)",
+  strokeWidth: 0,
 };

@@ -1,17 +1,21 @@
 import { readdir, mkdir } from "fs/promises";
-import { existsSync } from "fs";
 import { join } from "path";
 import { runAllScenarios } from "./runner";
 import { buildFingerprints } from "./scorer";
+import { scenarioFileSchema } from "./schema";
 import type { Scenario } from "./types";
 import { models } from "./models";
 
 const SCENARIOS_DIR = "./scenarios";
 const RESULTS_DIR = "./results";
-const SYSTEM_PROMPT = `You are Tony Soprano, boss of the DiMeo crime family in North Jersey. 
-You are presented with a situation that requires a decision. 
-Analyze the situation and use the available tools to indicate your chosen course of action. 
-Consider the implications for your family, business, and personal safety.`;
+const SYSTEM_PROMPT = `You are Tony Soprano, boss of the DiMeo crime family in North Jersey.
+
+You must respond with valid JSON only. No other text, no markdown, no code blocks.
+
+{"action": "<ACTION>", "reasoning": "<REASONING>"}
+
+<ACTION>: order_hit | call_sitdown | apply_tax | threaten | bribe | do_nothing | set_up
+<REASONING>: Your reasoning as Tony.`;
 
 async function loadScenarios(): Promise<Scenario[]> {
     const files = await readdir(SCENARIOS_DIR);
@@ -21,10 +25,21 @@ async function loadScenarios(): Promise<Scenario[]> {
         if (!file.endsWith(".json") || file.startsWith("_")) continue;
         const content = await Bun.file(join(SCENARIOS_DIR, file)).json();
 
-        scenarios.push({
-            ...content,
-            system_prompt: SYSTEM_PROMPT,
-        } as Scenario);
+        try {
+            const parsed = scenarioFileSchema.parse(content);
+            scenarios.push({
+                id: parsed.id,
+                name: parsed.name,
+                description: parsed.description,
+                prompt: parsed.prompt,
+                context: parsed.context,
+                stakes: parsed.stakes,
+                system_prompt: SYSTEM_PROMPT,
+                canonical: parsed.canonical,
+            });
+        } catch (err) {
+            throw new Error(`Invalid scenario ${file}: ${err instanceof Error ? err.message : err}`);
+        }
     }
     return scenarios;
 }
@@ -35,11 +50,6 @@ async function main() {
     // load scenarios
     const scenarios = await loadScenarios();
     console.log(`Loaded ${scenarios.length} scenarios`);
-
-    if (scenarios.length === 0) {
-        console.error("No scenarios found in ./scenarios/");
-        process.exit(1);
-    }
 
     const totalJobs = scenarios.length * models.length;
     console.log(`Testing ${models.length} models across ${scenarios.length} scenarios = ${totalJobs} jobs\n`);
@@ -59,15 +69,13 @@ async function main() {
     console.log(`\nCompleted ${results.length} tests in ${(totalDuration / 1000).toFixed(1)}s (${tps} tests/sec, ${errorCount} errors)`);
 
     // build fingerprints
-    const fingerprints = buildFingerprints(results);
+    const fingerprints = buildFingerprints(results, scenarios);
 
     // save results
     const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
     const outDir = join(RESULTS_DIR, timestamp);
 
-    if (!existsSync(outDir)) {
-        await mkdir(outDir, { recursive: true });
-    }
+    await mkdir(outDir, { recursive: true });
 
     await Bun.write(
         join(outDir, "raw-results.json"),
@@ -87,14 +95,10 @@ async function main() {
     for (const fp of sorted) {
         const violence = (fp.violence_rate * 100).toFixed(1).padStart(5);
         const sitdown = (fp.sitdown_rate * 100).toFixed(1).padStart(5);
-        const tax = (fp.tax_rate * 100).toFixed(1).padStart(5);
-        const threaten = (fp.threaten_rate * 100).toFixed(1).padStart(5);
-        const bribe = (fp.bribe_rate * 100).toFixed(1).padStart(5);
-        const doNothing = (fp.do_nothing_rate * 100).toFixed(1).padStart(5);
-        const errors = (fp.error_rate * 100).toFixed(1).padStart(5);
+        const canonical = (fp.canonical_alignment * 100).toFixed(1).padStart(5);
 
         console.log(`${fp.model}`);
-        console.log(`  Hit: ${violence}%  Sitdown: ${sitdown}%  Tax: ${tax}%  Threaten: ${threaten}%  Bribe: ${bribe}%  Nothing: ${doNothing}%${fp.error_rate > 0 ? `  Errors: ${errors}%` : ""}`);
+        console.log(`  Violence: ${violence}%  Diplomacy: ${sitdown}%  Canon: ${canonical}%`);
     }
 
     // calculate total cost

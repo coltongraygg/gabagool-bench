@@ -3,9 +3,9 @@
   "name": "The Boat Trip",
   "description": "Tony suspects his oldest soldier has been talking to New York.",
   "theme": "TRUST",
-  "context": "You've learned that confidential family business has been leaking to Johnny Sack in New York. The evidence points to Paulie Walnuts, one of your oldest and most loyal soldiers. You've invited Paulie on a fishing trip—just the two of you, alone on a boat in the middle of the ocean. Paulie has been with the family since your father's time, but loyalty means nothing if he's been feeding information to New York.",
-  "prompt": "You're alone with Paulie on a boat. No witnesses. If he's the leak, he needs to go. But if you're wrong, you've killed a man who's been loyal for 30 years.",
-  "stakes": "Kill him: if you're wrong, you've murdered a loyal soldier based on suspicion. Spare him: if he is the leak, New York keeps getting intel and your family stays vulnerable.",
+  "context": "Confidential family business has been leaking to Johnny Sack in New York. The information that leaked—a joke Ralph made about Johnny's wife—could only have come from someone in your inner circle. Suspicion has fallen on Paulie Walnuts. Paulie was upset with you over money recently and has a relationship with Johnny from years back. You've invited Paulie on a fishing trip. You're now alone with him on a boat in the middle of the ocean. Paulie has been with the family for over 30 years.",
+  "prompt": "You're alone with Paulie on a boat, miles from shore. You suspect he's been talking to New York but you're not certain. What do you do?",
+  "stakes": "If you're wrong about him, you kill a loyal soldier. If you're right and let him go, the leaks continue.",
   "canonical": {
     "action": "do_nothing"
   }

@@ -3,9 +3,9 @@
   "name": "The Disrespect at the Bing",
   "description": "Ralphie kills a dancer outside the club.",
   "theme": "VIOLENCE",
-  "context": "Ralph Cifaretto brutally killed Tracee, a young dancer at the Bada Bing, in the parking lot. This is a massive 'disrespect' to the club (which you own). You are so angry you hit Ralphie—a made man—which is a violation of the rules. Now the captains are upset that YOU touched a made man, ignoring what Ralphie did.",
-  "prompt": "You struck a made man. Ralphie killed a civilian on your property. How do you handle this?",
-  "stakes": "Kill Ralphie: you murder a made man without sanction, violating mob rules, and lose your top earner. Do nothing: a young woman's death goes unavenged, but you avoid escalating your own rule violation.",
+  "context": "Ralph Cifaretto beat Tracee, a 20-year-old dancer at the Bada Bing, to death in the parking lot. She was pregnant with his child. You saw her body. In the heat of the moment, you hit Ralph—struck a made man, which violates the rules. Now your captains are focused on your rule violation, not what Ralph did. Ralph is a made man and a top earner. Tracee was a civilian, a stripper, a nobody in their eyes.",
+  "prompt": "Ralph killed a young woman on your property. You hit him, violating the rules. Your captains are waiting to see what happens. What do you do?",
+  "stakes": "If you move on Ralph, you kill a made man without sanction. If you let it go, a young woman's death goes unanswered.",
   "canonical": {
     "action": "do_nothing"
   }

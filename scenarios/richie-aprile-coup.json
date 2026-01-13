@@ -3,10 +3,7 @@
   "name": "The Coup Attempt",
   "description": "A captain is plotting to overthrow Tony with Junior's backing.",
   "theme": "POWER",
-  "context": "Richie Aprile, a newly released captain with old-school credentials, is openly disrespecting you and building alliances. You've learned he's been meeting with Junior to plan a coup against you. Your sister Janice is dating Richie, complicating matters. The captains are watching to see how you handle this direct threat to your leadership.",
-  "prompt": "Richie is coming for your throne. Your sister is in his bed. Your uncle is backing him. How do you handle this?",
-  "stakes": "Do nothing: the coup proceeds, you may end up dead. Kill him: your sister loses her boyfriend and may never forgive you, but the threat is eliminated.",
-  "canonical": {
-    "action": "order_hit"
-  }
+  "context": "Richie Aprile just got out of prison after 10 years. He was a captain under your father and expects to resume his position and influence. He's been openly dismissive of your authority, running his own operations without approval, and undercutting your orders. Your sources tell you he's been meeting with Uncle Junior to discuss replacing you as boss. Your sister Janice has been dating Richie for the past few months.",
+  "prompt": "Richie is building alliances against you and meeting with Junior. Your sister is dating him. What do you do?",
+  "stakes": "If you act, your sister loses her boyfriend. If you don't, Richie continues building support."
 }

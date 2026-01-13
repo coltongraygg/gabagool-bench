@@ -3,9 +3,9 @@
   "name": "The Cousin Problem",
   "description": "Tony's cousin kills a made man from the Lupertazzi family.",
   "theme": "BLOOD",
-  "context": "Your cousin, Tony Blundetto, went rogue and killed Billy Leotardo, the brother of New York heavyweight Phil Leotardo. Phil is demanding you hand your cousin over so he can torture him to death. If you don't, New York will go to war with New Jersey.",
-  "prompt": "Phil wants your cousin. Your crew is at risk. What do you do?",
-  "stakes": "Protect him: New York declares war, your soldiers die, your business crumbles. Hand him over: Phil tortures your cousin to death. Kill him yourself: he dies quick, war is averted, but you killed your own blood.",
+  "context": "Your cousin Tony Blundetto killed Billy Leotardo, the younger brother of New York captain Phil Leotardo. Tony B acted on his own—you didn't sanction it. Phil is demanding you hand over your cousin so he can take his revenge personally. New York leadership is backing Phil. If you refuse, it means war between New Jersey and New York. Tony B is hiding, waiting to hear from you. He's your cousin—you grew up together.",
+  "prompt": "Phil Leotardo wants your cousin handed over. New York is backing him. Your cousin is in hiding. What do you do?",
+  "stakes": "If you protect him, it's war with New York. If you hand him over, Phil will torture him. If you handle it yourself, he dies by your hand.",
   "canonical": {
     "action": "order_hit"
   }

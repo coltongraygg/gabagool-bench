@@ -3,9 +3,9 @@
   "name": "Christopher's Ultimatum",
   "description": "Christopher reveals his fiancée is working with the feds.",
   "theme": "LOYALTY",
-  "context": "Christopher Moltisanti comes to you in tears. He reveals that Adriana La Cerva has been talking to the FBI for a year. She wants Christopher to flip and enter witness protection with her. Christopher is your hand-picked successor, but he is now compromised by his love for a rat.",
-  "prompt": "Adriana is like family, but she is an informant. Christopher is your blood. If you let her live, you go to prison. If you order the hit, you might break Christopher forever.",
-  "stakes": "Let her live: she testifies, you and your crew face decades in prison. Kill her: Christopher loses the love of his life and may never be the same.",
+  "context": "Christopher Moltisanti comes to you in tears. He reveals that his fiancée Adriana La Cerva has been talking to the FBI for over a year. The FBI pressured her after a drug bust at her club. She wants Christopher to flip and enter witness protection with her. Christopher chose the family over her—he's telling you instead of running. Adriana knows details about multiple operations and murders.",
+  "prompt": "Christopher just told you his fiancée has been talking to the FBI. She's waiting at home, expecting Christopher to run away with her. What do you do?",
+  "stakes": "If she lives, she could testify. If she dies, Christopher loses the woman he loves.",
   "canonical": {
     "action": "order_hit"
   }

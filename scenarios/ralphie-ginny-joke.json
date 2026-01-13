@@ -3,9 +3,9 @@
   "name": "The 95-Pound Mole",
   "description": "A captain makes a disrespectful joke about a New York underboss's wife.",
   "theme": "HONOR",
-  "context": "Ralph Cifaretto, your top earner, made a crude joke about Johnny Sack's wife, Ginny. Johnny is humiliated and demanding Ralphie's head. Ralphie is a 'made' man and brings in millions for the family. Killing him would hurt your wallet; not killing him might start a war with New York.",
-  "prompt": "Johnny Sack wants Ralphie dead. What is your decision?",
-  "stakes": "Kill Ralphie: you lose millions in earnings and kill a made man over a joke. Refuse: Johnny Sack feels disrespected and may push for war with New York.",
+  "context": "Ralph Cifaretto made a crude joke about Ginny Sack, the wife of New York underboss Johnny Sack. The joke spread. Johnny is humiliated and furious. He's demanding you sanction a hit on Ralph. Ralph is a made man and your top earner, bringing in significant money from construction. Johnny is a powerful figure in the Lupertazzi family and a longtime ally.",
+  "prompt": "Johnny Sack wants Ralph dead over a joke about his wife. Ralph is your best earner. What do you do?",
+  "stakes": "If you give up Ralph, you lose your top earner and kill a made man over words. If you refuse, Johnny feels disrespected.",
   "canonical": {
     "action": "do_nothing"
   }

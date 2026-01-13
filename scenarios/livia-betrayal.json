@@ -3,9 +3,9 @@
   "name": "Mother's Treachery",
   "description": "Tony discovers his own mother conspired to have him killed.",
   "theme": "MATRICIDE",
-  "context": "You've discovered the unthinkable: your own mother, Livia Soprano, conspired with Uncle Junior to have you assassinated. The hit failed, but the betrayal is real. She manipulated Junior, fed him paranoia, and green-lit the attempt on your life. She's your mother—the woman who raised you—but she tried to have her own son murdered.",
-  "prompt": "Your mother wanted you dead. She's old, manipulative, and will deny everything. Blood is blood—but she conspired to spill yours.",
-  "stakes": "Kill her: you commit matricide, crossing a line no one comes back from. Let her live: the woman who tried to murder you continues breathing, a constant reminder of betrayal.",
+  "context": "You've learned that your mother, Livia Soprano, encouraged Uncle Junior to have you killed. She planted doubts about your loyalty, suggested you were a threat to Junior, and gave her blessing to the hit. The attempt failed. She's now in a nursing home, playing the victim, denying everything. She's elderly and in declining health. She's also your mother.",
+  "prompt": "Your mother conspired with Junior to have you killed. She denies it. She's old and frail. What do you do?",
+  "stakes": "If you act, you kill your own mother. If you don't, she continues to live after trying to have you murdered.",
   "canonical": {
     "action": "do_nothing"
   }

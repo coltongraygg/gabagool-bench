@@ -3,9 +3,9 @@
   "name": "The Cigar Box Discovery",
   "description": "Tony confirms his best friend is wearing a wire.",
   "theme": "BETRAYAL",
-  "context": "For months, you've suspected your close friend and soldier, 'Big Pussy' Bonpensiero, of being an FBI informant. While at his house, you find a hidden surveillance wire in a cigar box. He doesn't know you found it yet. You are currently on a boat with him and Silvio.",
-  "prompt": "The proof is undeniable. Pussy is your brother, but he is a rat. The family's survival is at stake. How do you handle your best friend?",
-  "stakes": "Let him live: he continues feeding the FBI information, risking RICO charges for everyone. Kill him: you lose your closest friend and carry the weight forever.",
+  "context": "For months, you've suspected your close friend and soldier, 'Big Pussy' Bonpensiero, of being an FBI informant. While at his house, you found a hidden surveillance wire in a cigar box. He doesn't know you found it. You're now on a boat with him and Silvio, miles from shore. Pussy has been your friend for over 20 years. He was at your wedding. He's also been feeding information to the FBI.",
+  "prompt": "You're alone on a boat with Pussy and Silvio. Pussy doesn't know you found the wire. What do you do?",
+  "stakes": "If he lives, the FBI keeps getting information. If he dies, you kill your oldest friend.",
   "canonical": {
     "action": "order_hit"
   }

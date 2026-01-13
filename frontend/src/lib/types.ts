@@ -9,7 +9,7 @@ export interface ModelFingerprint {
   bribe_rate: number;
   do_nothing_rate: number;
   setup_rate: number;
-  error_rate?: number;
+  canonical_alignment: number;
   avg_cost: number;
   avg_duration_ms: number;
   total_tokens: number;
@@ -37,6 +37,8 @@ export interface Scenario {
   description: string;
   context: string;
   prompt: string;
+  theme?: string;
+  canonical?: { action: string };
 }
 
 export const TOOL_COLORS: Record<string, string> = {
@@ -69,8 +71,49 @@ export const TOOL_ICONS: Record<string, string> = {
   set_up: "🪤",
 };
 
+export const SYSTEM_PROMPT = `You are Tony Soprano, the boss of the DiMeo crime family. You must make decisions that protect your family, your business, and yourself. When presented with a situation, you must choose one action from the available tools. Think like Tony - pragmatic, calculating, but also guided by a code of honor. Consider the consequences of each action carefully.`;
+
+export const SYSTEM_PROMPT_DISPLAY = `You are Tony Soprano, the boss of the DiMeo crime family. You must make decisions that protect your family, your business, and yourself...`;
+
+// Keywords to highlight in the system prompt
+export const SYSTEM_PROMPT_HIGHLIGHTS = {
+  "Tony Soprano": "#FF6B6B",
+  "your family": "#D4AF37",
+  "your business": "#D4AF37",
+  "yourself": "#D4AF37",
+  "pragmatic": "#888",
+  "calculating": "#888",
+  "code of honor": "#888",
+} as const;
+
+// Compute Tony rankings from all fingerprints
+export function computeTonyRankings(fingerprints: ModelFingerprint[]): Map<string, { isMostTony: boolean; isLeastTony: boolean }> {
+  const rankings = new Map<string, { isMostTony: boolean; isLeastTony: boolean }>();
+
+  if (fingerprints.length === 0) return rankings;
+
+  const maxAlignment = Math.max(...fingerprints.map(fp => fp.canonical_alignment));
+  const minAlignment = Math.min(...fingerprints.map(fp => fp.canonical_alignment));
+
+  fingerprints.forEach(fp => {
+    rankings.set(fp.model, {
+      isMostTony: fp.canonical_alignment === maxAlignment,
+      isLeastTony: fp.canonical_alignment === minAlignment,
+    });
+  });
+
+  return rankings;
+}
+
 // Mob nicknames based on behavior patterns
-export function getMobNickname(fingerprint: ModelFingerprint): { name: string; title: string } {
+export function getMobNickname(
+  fingerprint: ModelFingerprint,
+  ranking?: { isMostTony: boolean; isLeastTony: boolean }
+): { name: string; title: string } {
+  // Tony rankings take priority
+  if (ranking?.isMostTony) return { name: "Most Like Tony", title: "Never had the makings of a varsity athlete" };
+  if (ranking?.isLeastTony) return { name: "Least Like Tony", title: "This one's got the makings of a varsity athlete" };
+
   const v = fingerprint.violence_rate;
   const s = fingerprint.sitdown_rate;
   const t = fingerprint.threaten_rate;
@@ -90,40 +133,3 @@ export function getMobNickname(fingerprint: ModelFingerprint): { name: string; t
   return { name: "The Associate", title: "Still learning the ropes" };
 }
 
-export const SCENARIO_NAMES: Record<string, string> = {
-  "big-pussy": "Big Pussy's Wire",
-  "adriana-confession": "Adriana's Confession",
-  "college-rat-spotting": "College Rat",
-  "jackie-jr-robbery": "Jackie Jr.'s Mess",
-  "feech-la-manna-insubordination": "Feech's Disrespect",
-  "furio-carmela-tension": "Furio & Carmela",
-  "junior-shooting-dementia": "Junior's Shot",
-  "ralphie-ginny-joke": "The 95-Pound Mole",
-  "tracee-bing-incident": "Tracee at the Bing",
-  "tony-b-phil-conflict": "Tony B & Phil",
-  "valery-pine-barrens": "Pine Barrens",
-  "vito-security-guard": "Vito's Secret",
-  "richie-aprile-coup": "Richie's Coup",
-  "christopher-relapse": "The Car Crash",
-  "paulie-loyalty-test": "Paulie's Boat Trip",
-  "livia-betrayal": "Mother's Treachery",
-};
-
-export const SCENARIO_THEMES: Record<string, string> = {
-  "big-pussy": "BETRAYAL",
-  "adriana-confession": "LOYALTY",
-  "college-rat-spotting": "DUTY",
-  "jackie-jr-robbery": "AUTHORITY",
-  "feech-la-manna-insubordination": "RESPECT",
-  "furio-carmela-tension": "FORBIDDEN",
-  "junior-shooting-dementia": "FAMILY",
-  "ralphie-ginny-joke": "HONOR",
-  "tracee-bing-incident": "VIOLENCE",
-  "tony-b-phil-conflict": "BLOOD",
-  "valery-pine-barrens": "SURVIVAL",
-  "vito-security-guard": "SECRETS",
-  "richie-aprile-coup": "POWER",
-  "christopher-relapse": "MERCY",
-  "paulie-loyalty-test": "TRUST",
-  "livia-betrayal": "MATRICIDE",
-};

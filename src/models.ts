@@ -295,11 +295,12 @@ export const models: ModelConfig[] = [
         llm: openrouter("z-ai/glm-4.7", defaultProviderOptions),
         reasoning: true,
     },
-        {
-        name: "olmo-3.1-32b-think",
-        llm: openrouter("allenai/olmo-3.1-32b-think:free", defaultProviderOptions),
-        reasoning: true,
-    },
+    // TODO: Free tier ended - replace with paid: allenai/olmo-3.1-32b-think
+    // {
+    //     name: "olmo-3.1-32b-think",
+    //     llm: openrouter("allenai/olmo-3.1-32b-think:free", defaultProviderOptions),
+    //     reasoning: true,
+    // },
     {
         name: "mistral-small-creative",
         llm: openrouter("mistralai/mistral-small-creative", defaultProviderOptions),

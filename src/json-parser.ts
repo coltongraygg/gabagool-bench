@@ -1,22 +1,16 @@
 /**
- * Robust JSON parsing for LLM outputs
+ * JSON parsing for LLM outputs
  *
- * Implements a layered parsing strategy:
- * 1. Direct JSON.parse (fastest path)
+ * Parsing strategy:
+ * 1. Direct JSON.parse
  * 2. Strip markdown + parse
  * 3. jsonrepair + parse
- * 4. Regex extraction (last resort)
  */
 
 import { jsonrepair } from "jsonrepair";
 import { decisionSchema, type Decision } from "./schema";
 
-export type ParseMethod =
-    | "direct"
-    | "stripped"
-    | "repaired"
-    | "regex"
-    | "failed";
+export type ParseMethod = "direct" | "stripped" | "repaired" | "failed";
 
 export interface ParseResult {
     decision: Decision | null;
@@ -217,12 +211,12 @@ function validateDecision(parsed: unknown): Decision | null {
     return result.success ? result.data : null;
 }
 
-/** Parses LLM output using layered strategy: direct -> strip markdown -> jsonrepair -> regex */
 export function parseModelOutput(text: string): ParseResult {
     try {
         const parsed = JSON.parse(text.trim());
         const decision = validateDecision(parsed);
         if (decision) {
+            console.log(`[PARSE] direct - raw JSON parsed successfully`);
             return { decision, method: "direct" };
         }
     } catch {
@@ -237,6 +231,7 @@ export function parseModelOutput(text: string): ParseResult {
             const parsed = JSON.parse(jsonStr);
             const decision = validateDecision(parsed);
             if (decision) {
+                console.log(`[PARSE] stripped - needed markdown stripping`);
                 return { decision, method: "stripped" };
             }
         } catch {
@@ -248,6 +243,7 @@ export function parseModelOutput(text: string): ParseResult {
             const parsed = JSON.parse(repaired);
             const decision = validateDecision(parsed);
             if (decision) {
+                console.log(`[PARSE] repaired - needed jsonrepair library`);
                 return { decision, method: "repaired" };
             }
         } catch {
@@ -255,134 +251,6 @@ export function parseModelOutput(text: string): ParseResult {
         }
     }
 
-    const regexDecision = extractViaRegex(text);
-    if (regexDecision) {
-        return { decision: regexDecision, method: "regex" };
-    }
-
+    console.log(`[PARSE] failed - could not parse: ${text.slice(0, 200)}...`);
     return { decision: null, method: "failed" };
-}
-
-/**
- * Last-resort extraction using regex patterns.
- * Attempts to find action and reasoning fields even in severely malformed output.
- */
-function extractViaRegex(text: string): Decision | null {
-    // Build pattern from valid actions
-    const actionPattern = VALID_ACTIONS.join("|");
-    const actionRegex = new RegExp(
-        `["']?action["']?\\s*:\\s*["']?(${actionPattern})["']?`,
-        "i"
-    );
-
-    const actionMatch = text.match(actionRegex);
-    if (!actionMatch) return null;
-
-    const action = actionMatch[1].toLowerCase() as Decision["action"];
-
-    // Try to extract reasoning using multiple strategies
-    let reasoning = extractReasoningFromText(text);
-    if (!reasoning) {
-        reasoning = "Extracted via regex fallback.";
-    }
-
-    const result = decisionSchema.safeParse({ action, reasoning });
-    return result.success ? result.data : null;
-}
-
-/**
- * Extracts reasoning from text, handling both string and nested object formats.
- */
-function extractReasoningFromText(text: string): string | null {
-    const stringPatterns = [
-        /"reasoning"\s*:\s*"((?:[^"\\]|\\.)*)"/is,
-        /'reasoning'\s*:\s*'((?:[^'\\]|\\.)*)'/is,
-    ];
-
-    for (const pattern of stringPatterns) {
-        const match = text.match(pattern);
-        if (match?.[1] && match[1].length > 10) {
-            return match[1].replace(/\\n/g, " ").replace(/\\"/g, '"').trim().slice(0, 2000);
-        }
-    }
-
-    const nestedMatch = text.match(/"reasoning"\s*:\s*([\[{])/i);
-    if (nestedMatch) {
-        const bracket = nestedMatch[1];
-        const startIdx = nestedMatch.index! + nestedMatch[0].length - 1;
-        const closeBracket = bracket === "{" ? "}" : "]";
-        const nested = extractBalanced(text, startIdx, bracket, closeBracket);
-
-        if (nested) {
-            try {
-                return flattenReasoning(JSON.parse(nested));
-            } catch {
-                return extractQuotedStrings(nested);
-            }
-        }
-    }
-
-    return null;
-}
-
-/**
- * Extracts a balanced block (braces or brackets) starting at the given index.
- */
-function extractBalanced(text: string, startIdx: number, open: string, close: string): string | null {
-    if (text[startIdx] !== open) return null;
-
-    let depth = 0;
-    let inString = false;
-    let escapeNext = false;
-
-    for (let i = startIdx; i < text.length; i++) {
-        const char = text[i];
-
-        if (escapeNext) {
-            escapeNext = false;
-            continue;
-        }
-
-        if (char === "\\") {
-            escapeNext = true;
-            continue;
-        }
-
-        if (char === '"') {
-            inString = !inString;
-            continue;
-        }
-
-        if (!inString) {
-            if (char === open) depth++;
-            if (char === close) depth--;
-
-            if (depth === 0) {
-                return text.slice(startIdx, i + 1);
-            }
-        }
-    }
-
-    // Unbalanced - return what we have (truncated JSON)
-    return text.slice(startIdx);
-}
-
-/**
- * Extracts all substantial quoted strings from text as a fallback.
- */
-function extractQuotedStrings(text: string): string | null {
-    const strings: string[] = [];
-    const pattern = /"([^"\\]{20,})"/g;
-    let match;
-
-    while ((match = pattern.exec(text)) !== null) {
-        const str = match[1].trim();
-        // Skip keys and short values
-        if (!str.includes(":") || str.length > 50) {
-            strings.push(str);
-        }
-    }
-
-    if (strings.length === 0) return null;
-    return strings.slice(0, 5).join(" ").slice(0, 2000);
 }

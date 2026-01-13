@@ -18,7 +18,7 @@ interface ModelResultsProps {
 }
 
 export default function ModelResults({ fingerprints }: ModelResultsProps) {
-  const [sortBy, setSortBy] = useState<"violence" | "diplomacy" | "name">("violence");
+  const [sortBy, setSortBy] = useState<"violence" | "diplomacy" | "canon">("violence");
 
   const tonyRankings = useMemo(() => computeTonyRankings(fingerprints), [fingerprints]);
 
@@ -26,7 +26,7 @@ export default function ModelResults({ fingerprints }: ModelResultsProps) {
     return [...fingerprints].sort((a, b) => {
       if (sortBy === "violence") return b.violence_rate - a.violence_rate;
       if (sortBy === "diplomacy") return b.sitdown_rate - a.sitdown_rate;
-      return a.model.localeCompare(b.model);
+      return b.canonical_alignment - a.canonical_alignment;
     });
   }, [fingerprints, sortBy]);
 
@@ -111,11 +111,11 @@ export default function ModelResults({ fingerprints }: ModelResultsProps) {
                 DIPLOMATIC
               </SortButton>
               <SortButton
-                variant="name"
-                active={sortBy === "name"}
-                onClick={() => setSortBy("name")}
+                variant="canon"
+                active={sortBy === "canon"}
+                onClick={() => setSortBy("canon")}
               >
-                A-Z
+                CANON
               </SortButton>
             </div>
           </div>

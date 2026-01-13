@@ -10,7 +10,7 @@ const sortButtonVariants = cva(
       variant: {
         violence: "",
         diplomacy: "",
-        name: "",
+        canon: "",
       },
       active: {
         true: "",
@@ -29,13 +29,13 @@ const sortButtonVariants = cva(
         className: "bg-gold text-black",
       },
       {
-        variant: "name",
+        variant: "canon",
         active: true,
-        className: "bg-border text-white",
+        className: "bg-emerald-600 text-white",
       },
     ],
     defaultVariants: {
-      variant: "name",
+      variant: "canon",
       active: false,
     },
   }

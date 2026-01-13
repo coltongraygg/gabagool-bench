@@ -7,11 +7,6 @@ interface Props {
   className?: string;
 }
 
-/**
- * Renders LLM reasoning text with markdown support.
- * Handles bold, lists, newlines, etc. that models naturally output.
- * Memoized to avoid re-parsing on parent re-renders.
- */
 export const MarkdownReasoning = memo(function MarkdownReasoning({ content, className }: Props) {
   return (
     <div className={className}>

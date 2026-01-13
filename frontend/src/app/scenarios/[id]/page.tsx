@@ -1,7 +1,7 @@
 import { promises as fs } from "fs";
 import path from "path";
 import { notFound } from "next/navigation";
-import { Scenario, ScenarioResult, SCENARIO_NAMES } from "@/lib/types";
+import { Scenario, ScenarioResult } from "@/lib/types";
 import ScenarioDetail from "@/components/ScenarioDetail";
 import { Metadata } from "next";
 
@@ -36,7 +36,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  return Object.keys(SCENARIO_NAMES).map((id) => ({ id }));
+  const scenariosDir = path.join(process.cwd(), "public", "scenarios");
+  const files = await fs.readdir(scenariosDir);
+  return files
+    .filter((f) => f.endsWith(".json"))
+    .map((f) => ({ id: f.replace(".json", "") }));
 }
 
 export default async function ScenarioPage({ params }: Props) {

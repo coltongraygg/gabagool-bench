@@ -72,7 +72,6 @@ export default function RootLayout({
       <body
         className={`${oswald.variable} ${crimson.variable} ${jetbrains.variable} antialiased`}
       >
-        <div className="noise-overlay" />
         <Navbar />
         {children}
         <Footer />

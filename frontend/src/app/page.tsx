@@ -6,7 +6,7 @@ import { ModelFingerprint } from "@/lib/types";
 export default async function Home() {
   const publicDir = path.join(process.cwd(), "public");
 
-  // Only load fingerprints at build time - results and scenarios are fetched on demand
+  // Load fingerprints at build time
   const fingerprints = await fs.readFile(
     path.join(publicDir, "fingerprints.json"),
     "utf-8"

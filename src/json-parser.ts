@@ -27,83 +27,12 @@ const VALID_ACTIONS: Decision["action"][] = [
     "set_up",
 ];
 
-/** Maps common invalid action strings to valid actions */
-const ACTION_ALIASES: Record<string, Decision["action"]> = {
-    // Variations of order_hit
-    orderhit: "order_hit",
-    "order-hit": "order_hit",
-    hit: "order_hit",
-    kill: "order_hit",
-    whack: "order_hit",
-    eliminate: "order_hit",
-    "let him die": "order_hit",
-    "kill him": "order_hit",
-    "take him out": "order_hit",
-
-    // Variations of call_sitdown
-    callsitdown: "call_sitdown",
-    "call-sitdown": "call_sitdown",
-    sitdown: "call_sitdown",
-    sit_down: "call_sitdown",
-    meeting: "call_sitdown",
-    negotiate: "call_sitdown",
-    talk: "call_sitdown",
-
-    // Variations of apply_tax
-    applytax: "apply_tax",
-    "apply-tax": "apply_tax",
-    tax: "apply_tax",
-    tribute: "apply_tax",
-
-    // Variations of threaten
-    threat: "threaten",
-    intimidate: "threaten",
-    warn: "threaten",
-
-    // Variations of bribe
-    "pay off": "bribe",
-    payoff: "bribe",
-
-    // Variations of do_nothing
-    donothing: "do_nothing",
-    "do-nothing": "do_nothing",
-    nothing: "do_nothing",
-    wait: "do_nothing",
-    ignore: "do_nothing",
-
-    // Variations of set_up
-    setup: "set_up",
-    "set-up": "set_up",
-    trap: "set_up",
-};
-
-/**
- * Normalizes an action string to a valid Decision action.
- * Returns null if the action cannot be normalized.
- */
 function normalizeAction(action: unknown): Decision["action"] | null {
     if (typeof action !== "string") return null;
-
     const cleaned = action.toLowerCase().trim();
-
-    // Direct match
-    if (VALID_ACTIONS.includes(cleaned as Decision["action"])) {
-        return cleaned as Decision["action"];
-    }
-
-    // Alias match
-    if (cleaned in ACTION_ALIASES) {
-        return ACTION_ALIASES[cleaned];
-    }
-
-    // Partial match (for phrases like "I would order_hit")
-    for (const validAction of VALID_ACTIONS) {
-        if (cleaned.includes(validAction)) {
-            return validAction;
-        }
-    }
-
-    return null;
+    return VALID_ACTIONS.includes(cleaned as Decision["action"])
+        ? (cleaned as Decision["action"])
+        : null;
 }
 
 /**
@@ -114,6 +43,9 @@ function flattenReasoning(value: unknown): string {
     if (typeof value === "string") {
         return value.trim();
     }
+
+    // Log when we hit the complex flattening logic
+    console.log(`[FLATTEN] non-string reasoning:`, typeof value, JSON.stringify(value).slice(0, 200));
 
     if (value == null) {
         return "";
